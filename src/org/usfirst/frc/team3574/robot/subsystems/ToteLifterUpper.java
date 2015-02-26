@@ -12,15 +12,16 @@ public class ToteLifterUpper extends Subsystem {
 	
 	// Production Robot start carry load contact
 
-	public static final double CONTACT_LEVEL = 949;
-	public static final double START_LEVEL = CONTACT_LEVEL + 38;
-	public static final double CARRY_LEVEL = CONTACT_LEVEL - 86;
-	public static final double LOAD_LEVEL = CONTACT_LEVEL - 336;
+	public static final double CONTACT_LEVEL = 820;
+	public static final double START_LEVEL = 900;
+	public static final double CARRY_LEVEL = 723;
+	public static final double LOAD_LEVEL = 395;
+	
 	
 	public ToteLifterUpper() {
 //		 postion 633.00 
 		SmartDashboard.putNumber("scale", 1.0);
-	    SmartDashboard.putNumber("P", 3.4);
+	    SmartDashboard.putNumber("P", 25);
 	    SmartDashboard.putNumber("I", 0.0);
 	    SmartDashboard.putNumber("D", 0.0);
 	    SmartDashboard.putNumber("F", 0.0);
@@ -63,6 +64,9 @@ public class ToteLifterUpper extends Subsystem {
     
     public void Log() {
     	SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
+    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
+    	SmartDashboard.putBoolean("Fwd Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
+    	SmartDashboard.putBoolean("Rev Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
     	
     	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
     		elevatorMotor.setP(SmartDashboard.getNumber("P"));

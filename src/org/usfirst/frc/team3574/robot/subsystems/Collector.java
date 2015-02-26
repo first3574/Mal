@@ -9,10 +9,10 @@ public class Collector extends Subsystem {
 	CANTalon rightMotor;
 	CANTalon leftMotor;
 	public static final double DONT_DO_ANYTHING = 0.0;
-	public static final double LEFT_MOTOR_IN = 0.5;
-	public static final double RIGHT_MOTOR_IN = 0.5;
-	public static final double LEFT_MOTOR_OUT = -0.5;
-	public static final double RIGHT_MOTOR_OUT = -0.5;
+	public static final double LEFT_MOTOR_IN = -0.5;
+	public static final double RIGHT_MOTOR_IN = -0.5;
+	public static final double LEFT_MOTOR_OUT = 0.5;
+	public static final double RIGHT_MOTOR_OUT = 0.5;
 
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.

@@ -83,14 +83,17 @@ public class OI {
     	JoystickButton buttonY2 = new JoystickButton(stick2, 4);
     	buttonY2.whileActive(new RunCollectorWheels(Collector.LEFT_MOTOR_OUT, Collector.DONT_DO_ANYTHING));
     	
-    	JoystickButton buttonLB = new JoystickButton(stick2, 5);
-    	buttonLB.whileActive(new RunCollectorWheels(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
+    	JoystickButton buttonLB2 = new JoystickButton(stick2, 5);
+    	buttonLB2.whileActive(new RunCollectorWheels(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
     	
-    	JoystickButton buttonRB = new JoystickButton(stick2, 6);
-    	buttonRB.whileActive(new RunCollectorWheels(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
+    	JoystickButton buttonRB2 = new JoystickButton(stick2, 6);
+    	buttonRB2.whileActive(new RunCollectorWheels(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
     	
     	JoystickButton buttonStick2 = new JoystickButton(stick2, 10);
     	buttonStick2.whileActive(new DriveByCamera());
+    	
+    	JoystickButton buttonTriangle = new JoystickButton(stick, 4);
+    	buttonTriangle.whileActive(new DriveByCamera());
     	
     	SmartDashboard.putData("Drive By Camera", new DriveByCamera());
     	

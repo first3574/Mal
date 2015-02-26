@@ -5,6 +5,7 @@ import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
 import org.usfirst.frc.team3574.robot.commands.AutonomousGoSpin;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3574.robot.subsystems.StepGrabber;
 import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -26,6 +27,7 @@ public class Robot extends IterativeRobot {
 
 	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
+	public static StepGrabber stepgrabber;
 	public static DriveTrain drivetrain;
 	public static ToteLifterUpper totelifterupper;
 	public static Collector collector;
@@ -40,6 +42,7 @@ public class Robot extends IterativeRobot {
     	totelifterupper = new ToteLifterUpper();
 		drivetrain = new DriveTrain();
 		collector = new Collector();
+		stepgrabber = new StepGrabber(); 
 		oi = new OI();
 		
 		
@@ -54,6 +57,7 @@ public class Robot extends IterativeRobot {
 		
 		drivetrain.Log();
 		totelifterupper.Log();
+		stepgrabber.Log();
 	}
 
     public void autonomousInit() {
@@ -93,6 +97,7 @@ public class Robot extends IterativeRobot {
         
         drivetrain.Log();
         totelifterupper.Log();
+        stepgrabber.Log();
     }
     
     /**
