@@ -9,13 +9,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ToteLifterUpper extends Subsystem {
 	CANTalon elevatorMotor;
+	double bottomLimitSwitchPosition = 1000;
+	boolean isGoingDown;
 	
-	// Production Robot start carry load contact
 
-	public static final double CONTACT_LEVEL = 820;
-	public static final double START_LEVEL = 900;
-	public static final double CARRY_LEVEL = 723;
-	public static final double LOAD_LEVEL = 395;
+	// Production Robot start carry load contact
+	public static final double PICKUP_LEVEL_OFFSET = -12;
+	public static final double CARRY_LEVEL_OFFSET = -172;
+	public static final double STACK_LEVEL_OFFSET = -495;
+
 	
 	
 	public ToteLifterUpper() {
@@ -40,7 +42,12 @@ public class ToteLifterUpper extends Subsystem {
 		
 		elevatorMotor.ConfigRevLimitSwitchNormallyOpen(false);
 		
+		SmartDashboard.putData(this);
 		
+	}
+	
+	public void calibrateBottomToCurrentPos() {
+		bottomLimitSwitchPosition = elevatorMotor.getAnalogInRaw();
 	}
 	
 	public void setElevatorPosAtCurent() {
@@ -48,11 +55,23 @@ public class ToteLifterUpper extends Subsystem {
 	}
 	
 	public void UpperOrDowner(double amountToMove) {
+		SmartDashboard.putNumber("AmountToMove", amountToMove);
 		elevatorMotor.set(elevatorMotor.getSetpoint() + amountToMove);
 	}
 	
-	public void setSetpoint(double setpoint) {
-		elevatorMotor.set(setpoint);
+	public void setSetpointOffset(double offset) {
+		int pastPos = elevatorMotor.getAnalogInRaw();
+		int newSetPoint = (int) (bottomLimitSwitchPosition + offset);
+		
+		isGoingDown = false;
+				
+		if (pastPos  < newSetPoint) {
+			isGoingDown = true;
+		}
+		
+		SmartDashboard.putBoolean("Is Going Down", isGoingDown);
+		
+		elevatorMotor.set(newSetPoint);
 	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -62,14 +81,26 @@ public class ToteLifterUpper extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    public boolean isBottomLimitTriped() {
+    	return ! elevatorMotor.isFwdLimitSwitchClosed();
+    }
+    
     public void Log() {
     	SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
+    	SmartDashboard.putNumber("Elavator Petentiometer Offset", this.bottomLimitSwitchPosition - elevatorMotor.getAnalogInRaw());
     	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
-    	SmartDashboard.putBoolean("Fwd Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
-    	SmartDashboard.putBoolean("Rev Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
+    	SmartDashboard.putBoolean("Bottom Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
+    	SmartDashboard.putBoolean("Top Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
+    	
     	
     	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
-    		elevatorMotor.setP(SmartDashboard.getNumber("P"));
+    		double pValue = SmartDashboard.getNumber("P");
+    		if (isGoingDown == true) {
+    			//pValue *= .50;
+    			//elevatorMotor.setCloseLoopRampRate(.01);
+    		}
+    		elevatorMotor.setP(pValue);
+    		
     	}
     	if (SmartDashboard.getNumber("I") != elevatorMotor.getI()) {
     		elevatorMotor.setI(SmartDashboard.getNumber("I"));

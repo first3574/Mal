@@ -8,11 +8,18 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class CollectWithJoy extends Command {
+	
+	private double lM = 0.0;
+	private double rM = 0.0;
 
-    public CollectWithJoy() {
+    public CollectWithJoy(double leftMotor, double rightMotor) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.collector);
+    	
+    	lM = leftMotor;
+    	rM = rightMotor;
+    	
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +28,7 @@ public class CollectWithJoy extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	Robot.collector.SetCollectorMotors(lM, rM);
     }
 
     // Make this return true when this Command no longer needs to run execute()

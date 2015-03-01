@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands;
 
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -9,6 +11,11 @@ public class AutomousPickUpTotels extends CommandGroup {
     
     public  AutomousPickUpTotels() {
     	addSequential(new DriveWithDistance(.5, 0, 0, 1000));
+    	addSequential(new DriveWithDistance(-.5, 0, 0, 1000));
+    	addSequential(new DriveWithDistance(0, .5, 0, 2000));
+    	addSequential(new DriveWithDistance(.5, 0, 0, 1000));
+    	addSequential(new DriveWithDistance(-.5, 0, 0, 1000));
+    	addSequential(new DriveWithDistance(0, .5, 0, 2000));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

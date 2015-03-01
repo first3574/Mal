@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands;
 
+import org.usfirst.frc.team3574.robot.commands.drivetrain.Spin;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

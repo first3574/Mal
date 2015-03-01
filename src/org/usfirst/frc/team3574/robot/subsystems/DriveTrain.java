@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
-import org.usfirst.frc.team3574.robot.commands.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
@@ -46,7 +46,7 @@ public class DriveTrain extends Subsystem {
 		talonInit(frontRightMotor);
 		
 		try {
-			serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
+			serial_port = new SerialPort(57600, SerialPort.Port.kMXP);
 
 			// You can add a second parameter to modify the
 			// update rate (in hz) from 4 to 100. The default is 100.
