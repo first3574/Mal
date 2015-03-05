@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveByCamera extends Command {
+public class DriveByCameraStrafe extends Command {
 
 	boolean isDone = false;
 	
@@ -20,7 +20,7 @@ public class DriveByCamera extends Command {
 	double posY;
 	double posX;
 			
-    public DriveByCamera() {
+    public DriveByCameraStrafe() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);

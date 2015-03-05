@@ -62,7 +62,9 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
+    	autonomousCommand = new AutomousPickUpTotels();
         if (autonomousCommand != null) autonomousCommand.start();
+        totelifterupper.setElevatorPosAtCurent();
     }
 
     /**
@@ -70,6 +72,10 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        drivetrain.Log();
+		totelifterupper.Log();
+		stepgrabber.Log();
     }
 
     public void teleopInit() {

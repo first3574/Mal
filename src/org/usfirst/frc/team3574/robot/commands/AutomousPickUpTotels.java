@@ -1,6 +1,11 @@
 package org.usfirst.frc.team3574.robot.commands;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
+import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
+import org.usfirst.frc.team3574.robot.subsystems.Collector;
+import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -10,12 +15,28 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutomousPickUpTotels extends CommandGroup {
     
     public  AutomousPickUpTotels() {
-    	addSequential(new DriveWithDistance(.5, 0, 0, 1000));
-    	addSequential(new DriveWithDistance(-.5, 0, 0, 1000));
-    	addSequential(new DriveWithDistance(0, .5, 0, 2000));
-    	addSequential(new DriveWithDistance(.5, 0, 0, 1000));
-    	addSequential(new DriveWithDistance(-.5, 0, 0, 1000));
-    	addSequential(new DriveWithDistance(0, .5, 0, 2000));
+//    	addSequential(new Calibrate());
+    	addSequential(new ResetYaw());
+//    	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
+    	addSequential(new DriveWithDistance(0, -0.5, 0, 800));
+//    	addSequential(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET), 0.2);
+    	addSequential(new DriveWithDistance(0, 0.5, 0, 800));
+//    	addSequential(new DriveWithDistance(-0.5, 0, 0, 100));
+//    	addSequential(new DriveWithDistance(0.5, 0, 0, 100));
+//    	addSequential(new DriveWithDistance(0.5, 0, 0, 800));
+//    	addSequential(new DriveWithDistance(0, -0.5, 0, 400));
+//    	addSequential(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET), 0.2);
+//    	addSequential(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET), 0.2);
+//    	addSequential(new DriveWithDistance(0, 0.5, 0, 400));
+//    	addSequential(new DriveWithDistance(0.5, 0, 0, 800));
+//    	addSequential(new DriveWithDistance(0, -0.5, 0, 400));
+//    	addSequential(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET), 0.2);
+//    	addSequential(new MoveElevatorTo(ToteLifterUpper.CARRY_LEVEL_OFFSET), 0.2);
+//    	addSequential(new DriveWithDistance(0, 0.5, 0, 800));
+//    	addSequential(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET), 0.2);
+//    	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 1);
+//    	addSequential(new DriveWithDistance(0, -0.5, 0, 400));
+
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

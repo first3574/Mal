@@ -14,59 +14,63 @@ public class DriveWithJoy extends Command {
 	double throttle;
 	double scaledX, scaledY, scaledZ;
 	OI oI = Robot.oi;
-	final private double MAKE_GO_STRAIT = 0.9;
+	final private double MAKE_GO_STRAIGHT = 0.9;
 
-    public DriveWithJoy() {
-        // Use requires() here to declare subsystem dependencies
-        requires(Robot.drivetrain);
-        System.out.println("drive with joy started");
-    }
+	public DriveWithJoy() {
+		// Use requires() here to declare subsystem dependencies
+		requires(Robot.drivetrain);
+		System.out.println("drive with joy started");
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize()  {
-    	throttle = 1.0;
-    	deadZone = 0.05;
-    }
+	// Called just before this Command runs the first time
+	protected void initialize()  {
+		throttle = 1.0;
+		deadZone = 0.05;
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	
-    	if(Math.abs(oI.joystickX()) > MAKE_GO_STRAIT || (Math.abs(oI.joystickY()) > MAKE_GO_STRAIT)){
-    		deadZone = .3;
-    	} else {
-    		deadZone = .05;
-    	}
-        
-    	throttle = (-oI.joystickThrottle() + 1) / 2;
-    	
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+
+		if(Math.abs(oI.joystickX()) > MAKE_GO_STRAIGHT || (Math.abs(oI.joystickY()) > MAKE_GO_STRAIGHT)){
+			deadZone = .3;
+		} else {
+			deadZone = .05;
+		}
+
+		throttle = ((-oI.joystickThrottle() + 1) / 4) +.5;
+
 		scaledX = Math.abs(-oI.joystickX()) < deadZone ? 0.0 : -oI.joystickX() * throttle;
 		scaledY = Math.abs(-oI.joystickY()) < deadZone ? 0.0 : -oI.joystickY() * throttle; 
 		scaledZ = Math.abs(oI.joystickZ()) < deadZone ? 0.0 : oI.joystickZ() * throttle;
 		scaledX = joystickScale(scaledX);
 		scaledY = joystickScale(scaledY);				
 		scaledZ = joystickScale(scaledZ);
-		
+
 		SmartDashboard.putNumber("Scaled Y", scaledY);
-		
-		Robot.drivetrain.driveFieldOrientated(scaledX, scaledY, scaledZ);
+
+		if (!oI.isTriggerPulled()) {
+			Robot.drivetrain.driveFieldOrientated(scaledX, scaledY, scaledZ, throttle);
+		} else {
+			Robot.drivetrain.driveRobotOrientated(scaledX, scaledY, scaledZ, throttle);
+		}
 	}
-    
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
-    
-    public double joystickScale(double input) {
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
+
+	public double joystickScale(double input) {
 		boolean isNegative = false;
 		if (input < 0.0) {
 			isNegative = true;

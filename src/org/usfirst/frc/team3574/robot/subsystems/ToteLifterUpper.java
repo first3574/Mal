@@ -14,7 +14,7 @@ public class ToteLifterUpper extends Subsystem {
 	
 
 	// Production Robot start carry load contact
-	public static final double PICKUP_LEVEL_OFFSET = -12;
+	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -12;
 	public static final double CARRY_LEVEL_OFFSET = -172;
 	public static final double STACK_LEVEL_OFFSET = -495;
 
@@ -36,7 +36,8 @@ public class ToteLifterUpper extends Subsystem {
 		
 		elevatorMotor.enableBrakeMode(true);
 		
-		elevatorMotor.setPID(3.4, 0.0, 0.0);
+		elevatorMotor.setPID(25.0, 0.0, 0.0);
+		elevatorMotor.setCloseLoopRampRate(0.00000005);
 		
 		elevatorMotor.ConfigFwdLimitSwitchNormallyOpen(false);
 		
@@ -91,7 +92,9 @@ public class ToteLifterUpper extends Subsystem {
     	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
     	SmartDashboard.putBoolean("Bottom Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
     	SmartDashboard.putBoolean("Top Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
-    	
+    	SmartDashboard.putNumber("out put Volt", elevatorMotor.getOutputVoltage());
+    	SmartDashboard.putNumber("bus Volt", elevatorMotor.getBusVoltage());
+    	SmartDashboard.putNumber("currint Motor", elevatorMotor.getOutputCurrent());
     	
     	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
     		double pValue = SmartDashboard.getNumber("P");

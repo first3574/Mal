@@ -12,6 +12,7 @@ public class StepGrabber extends Subsystem {
     Solenoid lifterThing;
     Solenoid pusherThing;
     Timer time;
+    double timerLast;
     
     //ToDo:oreang9uej0tiirjgieqnriwjehignj0iasejerjg0tiwneiugeirng9wNGINE0QNT9JEJ9REIETGDS
     
@@ -25,6 +26,7 @@ public class StepGrabber extends Subsystem {
     	
     	time.reset();
     	time.start();
+    	timerLast = time.get();
     }
     
     
@@ -50,6 +52,8 @@ public class StepGrabber extends Subsystem {
     public void Log() {
 //		SmartDashboard.putNumber("Orentation", imu.getYaw());
 		SmartDashboard.putNumber("Time", time.get());
+		SmartDashboard.putNumber("time loop", time.get() - timerLast);
+		timerLast = time.get();
     }
 }
 

@@ -69,11 +69,15 @@ public class DriveTrain extends Subsystem {
 	}
     
     public void driveFieldOrientated(double x, double y, double z) {
-		mecanumDrive_Cartesian(x, y, z, this.getYaw());
+		driveFieldOrientated(x, y, z, 1.0);
     }
     
-    public void driveRobotOrientated(double x, double y, double z) {
-		mecanumDrive_Cartesian(x, y, z, 0.0);
+    public void driveFieldOrientated(double x, double y, double z, double throttle) {
+		mecanumDrive_Cartesian(x, y, z, this.getYaw(), throttle);
+    }
+    
+    public void driveRobotOrientated(double x, double y, double z, double throttle) {
+		mecanumDrive_Cartesian(x, y, z, 270.0, throttle);
     }
     
 	private void talonInit(CANTalon theThing) {
@@ -86,13 +90,9 @@ public class DriveTrain extends Subsystem {
 	
 	private double getYaw() {
 		if (imu != null) {
-			if (imu.getYaw() < 0.0) {
-				return 360 + imu.getYaw();
-			} else {
-				return imu.getYaw();
-			}
+			return (imu.getYaw() + 90) % 360;  // imu goes -180 to 180
 		} else {
-			return 90.0;
+			return 270.0;
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class DriveTrain extends Subsystem {
 		frontLeftMotor.setPosition(0);
 		frontRightMotor.setPosition(0);
 		backLeftMotor.setPosition(0);
-		backRightMotor.setPosition(0); 
+		backRightMotor.setPosition(0);
 	}
 	public void resetYaw() {
 		if (imu != null) {
@@ -133,7 +133,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void mecanumDrive_Cartesian(double x, double y, double rotation,
-			double gyroAngle) {
+			double gyroAngle, double throttle) {
 
 		double xIn = x;
 		double yIn = y;
@@ -142,7 +142,7 @@ public class DriveTrain extends Subsystem {
 		// Compensate for gyro angle.
 		double rotated[] = rotateVector(xIn, yIn, gyroAngle);
 		xIn = rotated[0];
-		yIn = rotated[1];
+		yIn = rotated[1] * throttle;
 
 		double wheelSpeeds[] = new double[4];
 		wheelSpeeds[0] = xIn + yIn + rotation;
@@ -151,6 +151,19 @@ public class DriveTrain extends Subsystem {
 		wheelSpeeds[3] = xIn + yIn - rotation;
 
 		normalize(wheelSpeeds);
+		
+//		if (SmartDashboard.getNumber("P") != frontLeftMotor.getP()) {
+//			frontLeftMotor.setP(SmartDashboard.getNumber("P"));
+//    	}
+//    	if (SmartDashboard.getNumber("I") != frontLeftMotor.getI()) {
+//    		frontLeftMotor.setI(SmartDashboard.getNumber("I"));
+//    	}
+//    	if (SmartDashboard.getNumber("D") != frontLeftMotor.getD()) {
+//    		frontLeftMotor.setD(SmartDashboard.getNumber("D"));
+//    	}
+//    	if (SmartDashboard.getNumber("F") != frontLeftMotor.getF()) {
+//    		frontLeftMotor.setF(SmartDashboard.getNumber("F"));
+//    	}
 
 		frontLeftMotor.set(wheelSpeeds[0] * -275.0);
 		frontRightMotor.set(wheelSpeeds[1] * 275.0);
@@ -188,16 +201,22 @@ public class DriveTrain extends Subsystem {
 	public void resetEncoderValues() {
 		frontLeftMotor.setPosition(0.0);
 		frontRightMotor.setPosition(0.0);
-		backLeftMotor.setPosition(.0);
+		backLeftMotor.setPosition(0.0);
 		backRightMotor.setPosition(0.0);
 	}
 	
 	public void Log() {
-//		SmartDashboard.putNumber("Orentation", imu.getYaw());
+		if(imu != null){
+			SmartDashboard.putNumber("Orentation", imu.getYaw());
+		}
 		SmartDashboard.putNumber("frontLeftEncoder", frontLeftMotor.getEncPosition());
 		SmartDashboard.putNumber("frontRightEncoder", frontRightMotor.getEncPosition());
 		SmartDashboard.putNumber("backLeftEncoder", backLeftMotor.getEncPosition());
 		SmartDashboard.putNumber("backRightEncoder", backRightMotor.getEncPosition());
+		SmartDashboard.putNumber("frontLeftMotorSpeed", frontLeftMotor.getSpeed());
+		SmartDashboard.putNumber("frontRightMotorSpeed", frontRightMotor.getSpeed());
+		SmartDashboard.putNumber("backLeftMotorSpeed", backLeftMotor.getSpeed());
+		SmartDashboard.putNumber("backRightMotorSpeed", backRightMotor.getSpeed());
 	}
 	
 }
