@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveElevatorTo extends Command {
 	
 	private double sP = 0.0;
+	int count;
 
     public MoveElevatorTo(double setPoint) {
         // Use requires() here to declare subsystem dependencies
@@ -21,11 +22,21 @@ public class MoveElevatorTo extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.totelifterupper.setSetpointOffset(sP);
+    	count = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+//    	switch (count) {
+//		case 0:
+//			Robot.totelifterupper.setSetpointOffset(sP/2);
+//			
+//			break;
+//
+//		default:
+//			break;
+//		}  p 20 D 6
+    	Robot.totelifterupper.setSetpointOffset(sP);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -37,7 +37,12 @@ public class DriveTrain extends Subsystem {
 		frontLeftMotor = new CANTalon(1);
 		frontRightMotor = new CANTalon(3);
 		accel = new BuiltInAccelerometer();
-		
+
+	    SmartDashboard.putNumber("Drive Train P", 1.0);
+	    SmartDashboard.putNumber("Drive Train I", 0.0);
+	    SmartDashboard.putNumber("Drive Train D", 0.0);
+	    SmartDashboard.putNumber("Drive Train F", 3.95);
+	    
 		System.out.println("instantiated");
 		
 		talonInit(backLeftMotor);
@@ -151,18 +156,30 @@ public class DriveTrain extends Subsystem {
 		wheelSpeeds[3] = xIn + yIn - rotation;
 
 		normalize(wheelSpeeds);
-		
-//		if (SmartDashboard.getNumber("P") != frontLeftMotor.getP()) {
-//			frontLeftMotor.setP(SmartDashboard.getNumber("P"));
+//		
+//		if (SmartDashboard.getNumber("Drive Train P") != frontLeftMotor.getP()) {
+//			frontLeftMotor.setP(SmartDashboard.getNumber("Drive Train P"));
+//			frontRightMotor.setP(SmartDashboard.getNumber("Drive Train P"));
+//			backLeftMotor.setP(SmartDashboard.getNumber("Drive Train P"));
+//			backRightMotor.setP(SmartDashboard.getNumber("Drive Train P"));
 //    	}
-//    	if (SmartDashboard.getNumber("I") != frontLeftMotor.getI()) {
-//    		frontLeftMotor.setI(SmartDashboard.getNumber("I"));
+//    	if (SmartDashboard.getNumber("Drive Train I") != frontLeftMotor.getI()) {
+//    		frontLeftMotor.setI(SmartDashboard.getNumber("Drive Train I"));
+//			frontRightMotor.setP(SmartDashboard.getNumber("Drive Train I"));
+//			backLeftMotor.setP(SmartDashboard.getNumber("Drive Train I"));
+//			backRightMotor.setP(SmartDashboard.getNumber("Drive Train I"));
 //    	}
-//    	if (SmartDashboard.getNumber("D") != frontLeftMotor.getD()) {
-//    		frontLeftMotor.setD(SmartDashboard.getNumber("D"));
+//    	if (SmartDashboard.getNumber("Drive Train D") != frontLeftMotor.getD()) {
+//    		frontLeftMotor.setD(SmartDashboard.getNumber("Drive Train D"));
+//			frontRightMotor.setP(SmartDashboard.getNumber("Drive Train D"));
+//			backLeftMotor.setP(SmartDashboard.getNumber("Drive Train D"));
+//			backRightMotor.setP(SmartDashboard.getNumber("Drive Train D"));
 //    	}
-//    	if (SmartDashboard.getNumber("F") != frontLeftMotor.getF()) {
-//    		frontLeftMotor.setF(SmartDashboard.getNumber("F"));
+//    	if (SmartDashboard.getNumber("Drive Train F") != frontLeftMotor.getF()) {
+//    		frontLeftMotor.setF(SmartDashboard.getNumber("Drive Train F"));
+//			frontRightMotor.setP(SmartDashboard.getNumber("Drive Train F"));
+//			backLeftMotor.setP(SmartDashboard.getNumber("Drive Train F"));
+//			backRightMotor.setP(SmartDashboard.getNumber("Drive Train F"));
 //    	}
 
 		frontLeftMotor.set(wheelSpeeds[0] * -275.0);
@@ -217,6 +234,10 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("frontRightMotorSpeed", frontRightMotor.getSpeed());
 		SmartDashboard.putNumber("backLeftMotorSpeed", backLeftMotor.getSpeed());
 		SmartDashboard.putNumber("backRightMotorSpeed", backRightMotor.getSpeed());
+		SmartDashboard.putNumber("frontLeftMotorCurent", frontRightMotor.getOutputCurrent());
+		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
+		SmartDashboard.putNumber("backLeftMotorCurent", backRightMotor.getOutputCurrent());
+		SmartDashboard.putNumber("backRightMotorCurent", backLeftMotor.getOutputCurrent());
 	}
 	
 }

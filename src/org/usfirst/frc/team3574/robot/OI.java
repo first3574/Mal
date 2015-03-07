@@ -144,18 +144,18 @@ public class OI {
 		SmartDashboard.putNumber("X_Axis", stick.getRawAxis(0));
 		SmartDashboard.putNumber("POV values", stick.getPOV());
 		
-    	return stick.getRawAxis(0) + stick2.getRawAxis(0);
+    	return stick.getRawAxis(0); //+ stick2.getRawAxis(0);
     }
     
     public double joystickY() {
 		SmartDashboard.putNumber("Y Axis", stick.getRawAxis(1));
 		
-    	return stick.getRawAxis(1) + stick2.getRawAxis(1);
+    	return stick.getRawAxis(1); //+ stick2.getRawAxis(1);
 
     }
     
     public double joystickZ() {
-    	return -stick.getRawAxis(3) + -stick.getRawAxis(4) + (stick2.getRawAxis(3) - stick2.getRawAxis(2)) + stick2.getRawAxis(4);		//PS3 was 2 
+    	return -stick.getRawAxis(3) + -stick.getRawAxis(4); //+ (stick2.getRawAxis(3) - stick2.getRawAxis(2)) + stick2.getRawAxis(4);		//PS3 was 2 
     }																											
     
     public double joystickThrottle() {									//PS3 was -3

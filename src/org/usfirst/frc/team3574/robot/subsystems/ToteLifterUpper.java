@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -11,6 +12,7 @@ public class ToteLifterUpper extends Subsystem {
 	CANTalon elevatorMotor;
 	double bottomLimitSwitchPosition = 1000;
 	boolean isGoingDown;
+	DigitalInput stopLiftSwitch = new DigitalInput(0);
 	
 
 	// Production Robot start carry load contact
@@ -24,7 +26,7 @@ public class ToteLifterUpper extends Subsystem {
 //		 postion 633.00 
 		SmartDashboard.putNumber("scale", 1.0);
 	    SmartDashboard.putNumber("P", 25);
-	    SmartDashboard.putNumber("I", 0.0);
+	    SmartDashboard.putNumber("I", 0.001);
 	    SmartDashboard.putNumber("D", 0.0);
 	    SmartDashboard.putNumber("F", 0.0);
 	    
@@ -36,7 +38,7 @@ public class ToteLifterUpper extends Subsystem {
 		
 		elevatorMotor.enableBrakeMode(true);
 		
-		elevatorMotor.setPID(25.0, 0.0, 0.0);
+		elevatorMotor.setPID(25.0, 0.0, 0.001);
 		elevatorMotor.setCloseLoopRampRate(0.00000005);
 		
 		elevatorMotor.ConfigFwdLimitSwitchNormallyOpen(false);
@@ -45,6 +47,10 @@ public class ToteLifterUpper extends Subsystem {
 		
 		SmartDashboard.putData(this);
 		
+	}
+	
+	public boolean stopLiftSwitch() {
+		return stopLiftSwitch.get();
 	}
 	
 	public void calibrateBottomToCurrentPos() {
@@ -95,6 +101,7 @@ public class ToteLifterUpper extends Subsystem {
     	SmartDashboard.putNumber("out put Volt", elevatorMotor.getOutputVoltage());
     	SmartDashboard.putNumber("bus Volt", elevatorMotor.getBusVoltage());
     	SmartDashboard.putNumber("currint Motor", elevatorMotor.getOutputCurrent());
+    	SmartDashboard.putBoolean("Ato Lift Limit Switch", stopLiftSwitch());
     	
     	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
     		double pValue = SmartDashboard.getNumber("P");
