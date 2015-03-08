@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
+import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutonomousGoSpin;
 import org.usfirst.frc.team3574.robot.commands.AutonomousVision;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
 		autoChooser.addObject("vision", new AutonomousVision());
+		autoChooser.addObject("ShovelTotes", new AutomousPushToteToScore());
 		
         // instantiate the command used for the autonomous period
 		autonomousCommand = new AutomousPickUpTotels();

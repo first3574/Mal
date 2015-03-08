@@ -4,6 +4,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRightOrLe
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
+import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutomousPickUpTotels extends CommandGroup {
     
     public  AutomousPickUpTotels() {
-    	addSequential(new Calibrate());
+    	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw());
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
     	addSequential(new DriveWithDistance(0, -1.0, 0, 1000));// 900

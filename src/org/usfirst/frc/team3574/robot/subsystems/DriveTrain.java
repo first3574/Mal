@@ -22,6 +22,7 @@ public class DriveTrain extends Subsystem {
     SerialPort serial_port;
     boolean first_iteration;
     private BuiltInAccelerometer accel;
+    private double offset = 90;
     
     double framecount;
 	double disFromCen;
@@ -58,6 +59,10 @@ public class DriveTrain extends Subsystem {
 		talonInit(frontRightMotor);
 		
 		net = NetworkTable.getTable("Vision");
+		net.putNumber("Distance From Center", 0);
+    	net.putNumber("Position X", -1);
+    	net.putNumber("Position Y", -1);
+    	net.putNumber("Frame Count", 0);
 		
 		try {
 			serial_port = new SerialPort(57600, SerialPort.Port.kMXP);
@@ -104,9 +109,9 @@ public class DriveTrain extends Subsystem {
 	
 	private double getYaw() {
 		if (imu != null) {
-			return (imu.getYaw() + 90) % 360;  // imu without mods goes -180 to 180
+			return (imu.getYaw() + offset) % 360;  // imu without mods goes -180 to 180
 		} else {
-			return 270.0;
+			return 270;
 		}
 	}
 	
@@ -124,6 +129,11 @@ public class DriveTrain extends Subsystem {
 		if (imu != null) {
 			imu.zeroYaw();
 		}
+	}
+	
+	public void resetYaw(double rotatedAmount) {
+		offset = rotatedAmount + 90;
+		resetYaw();
 	}
 	
 	protected static double[] rotateVector(double x, double y, double angle) {
@@ -251,6 +261,8 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
 		SmartDashboard.putNumber("backLeftMotorCurent", backRightMotor.getOutputCurrent());
 		SmartDashboard.putNumber("backRightMotorCurent", backLeftMotor.getOutputCurrent());
+		SmartDashboard.putNumber("IMU Pich", imu.getPitch());
+		SmartDashboard.putNumber("IMU Roll", imu.getRoll());
 		
 		
 		disFromCen = net.getNumber("Distance From Center");

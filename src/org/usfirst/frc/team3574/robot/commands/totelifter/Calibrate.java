@@ -25,8 +25,10 @@ public class Calibrate extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (!Robot.totelifterupper.isBottomLimitTriped()){
-    		Robot.totelifterupper.UpperOrDowner(10);
+    	if(timeSinceInitialized() < 0.5) {
+    		Robot.totelifterupper.UpperOrDowner(-5);
+        } else if (!Robot.totelifterupper.isBottomLimitTriped()){
+    		Robot.totelifterupper.UpperOrDowner(7);
     	} else {
     		Robot.totelifterupper.calibrateBottomToCurrentPos();
     		

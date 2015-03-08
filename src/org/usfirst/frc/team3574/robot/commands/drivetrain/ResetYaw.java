@@ -8,6 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ResetYaw extends Command {
+	double offset = 0;
+
+    public ResetYaw(double rotatedAmount) {
+    	this.offset = rotatedAmount;
+        // Use requires() here to declare subsystem dependencies
+        requires(Robot.drivetrain);
+    }
 
     public ResetYaw() {
         // Use requires() here to declare subsystem dependencies
@@ -16,7 +23,7 @@ public class ResetYaw extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetYaw(); 
+    	Robot.drivetrain.resetYaw(offset); 
     }
 
     // Called repeatedly when this Command is scheduled to run

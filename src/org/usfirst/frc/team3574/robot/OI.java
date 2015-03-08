@@ -149,6 +149,8 @@ public class OI {
     	
     	TrigerButton rightTrig = new TrigerButton(stick2, 3);
     	rightTrig.whileActive(new AutoLifterUpper(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET, ToteLifterUpper.STACK_LEVEL_OFFSET));
+    	TrigerButton leftTrig = new TrigerButton(stick2, 2);
+    	leftTrig.whileActive(new AutoLifterUpper(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET, ToteLifterUpper.CARRY_LEVEL_OFFSET));
      	
     	
 //    	JoystickButton buttonLB2 = new JoystickButton(stick2, 5);						//PS3 = 5

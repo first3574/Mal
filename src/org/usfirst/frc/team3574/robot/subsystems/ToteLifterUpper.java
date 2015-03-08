@@ -16,7 +16,7 @@ public class ToteLifterUpper extends Subsystem {
 	
 
 	// Production Robot start carry load contact
-	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -12;
+	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -7;
 	public static final double CARRY_LEVEL_OFFSET = -172;
 	public static final double STACK_LEVEL_OFFSET = -495;
 
@@ -25,10 +25,9 @@ public class ToteLifterUpper extends Subsystem {
 	public ToteLifterUpper() {
 //		 postion 633.00 
 		SmartDashboard.putNumber("scale", 1.0);
-	    SmartDashboard.putNumber("P", 25);
-	    SmartDashboard.putNumber("I", 0.001);
-	    SmartDashboard.putNumber("D", 0.0);
-	    SmartDashboard.putNumber("F", 0.0);
+	    SmartDashboard.putNumber("P", 20);
+	    SmartDashboard.putNumber("I", 0.05);
+	    SmartDashboard.putNumber("D", 0.1);
 	    
 		elevatorMotor = new CANTalon(5);
 		
@@ -38,7 +37,7 @@ public class ToteLifterUpper extends Subsystem {
 		
 		elevatorMotor.enableBrakeMode(true);
 		
-		elevatorMotor.setPID(25.0, 0.0, 0.001);
+		elevatorMotor.setPID(20.0, 0.05, 0.1, 0.0, 50, 0.0, 0);
 		elevatorMotor.setCloseLoopRampRate(0.00000005);
 		
 		elevatorMotor.ConfigFwdLimitSwitchNormallyOpen(false);
@@ -97,6 +96,14 @@ public class ToteLifterUpper extends Subsystem {
     }
     
     public void Log() {
+    	double diffOfPid = (elevatorMotor.getSetpoint()-elevatorMotor.getAnalogInRaw());
+    	if (diffOfPid > 12.5) {
+    		diffOfPid = 12.5;
+    	} else if (diffOfPid < -12.5) {
+    		diffOfPid = -12.5;
+    	}
+    	SmartDashboard.putNumber("Diff of Elavator Set Point and Actual Point", diffOfPid);
+		SmartDashboard.putNumber("Elavator Motor Current", elevatorMotor.getOutputCurrent());
     	SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
     	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
     	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
