@@ -16,8 +16,13 @@ public class DriveWithDistance extends Command {
 	private double rot;
 	private int dis;
 	String name;
-	boolean goTime = false;
-	int loopCount = 0;
+	int startEncoderValueFrontLeft;
+	int startEncoderValueBackLeft;
+	int startEncoderValueFrontRight;
+	int startEncoderValueBackRight;
+	double selfStraght;
+	double iMUStart;
+	double iMUDiffrence;
 	
     public DriveWithDistance(double xSpeed, double ySpeed, double rotate, int distance) {
         // Use requires() here to declare subsystem dependencies
@@ -28,6 +33,7 @@ public class DriveWithDistance extends Command {
     	y = ySpeed;	
     	rot = rotate;
     	dis = distance;
+    	selfStraght = rot;
     	name = this.getClass().getName() + " " + this.hashCode();
 		System.out.println(name + " instantiation");
 		
@@ -35,16 +41,14 @@ public class DriveWithDistance extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	goTime = false;
-    	loopCount = 0;
-    	Robot.drivetrain.resetEncoderValues();
-    	System.out.println(name + " resetEncoderValues " + Robot.drivetrain.backLeftEncoderValue());
+    	startEncoderValueBackRight = Robot.drivetrain.backRightEncoderValue();
+    	startEncoderValueFrontRight = Robot.drivetrain.frontRightEncoderValue();
+    	startEncoderValueBackLeft = Robot.drivetrain.backLeftEncoderValue();
+    	startEncoderValueFrontLeft = Robot.drivetrain.frontLeftEncoderValue();
     	
-//    	try {
-//    		Thread.sleep(500);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
+    	iMUStart = Robot.drivetrain.getOrigIMUGetYaw();
+    	System.out.println("initialize" + Robot.drivetrain.backRightEncoderValue() + "		" + Robot.drivetrain.frontRightEncoderValue() + "		" + Robot.drivetrain.backLeftEncoderValue() + "	" + Robot.drivetrain.frontLeftEncoderValue());
+    	
     	
 		System.out.println(name + " init");
     	
@@ -52,28 +56,32 @@ public class DriveWithDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		System.out.println(name + " exec start");
-		System.out.println(name + Robot.drivetrain.backLeftEncoderValue());
-    	if(!goTime && Math.abs(Robot.drivetrain.backLeftEncoderValue()) > 50 && loopCount < 50) {
-    		loopCount++;
-    		return;
-    	}
-    	goTime = true;
-    	Robot.drivetrain.driveFieldOrientated(x, y, rot);
-		System.out.println(name + " exec end");
+//		System.out.println(name + " exec start");
+//		System.out.println(name + Robot.drivetrain.backLeftEncoderValue());
+		
+		iMUDiffrence = Robot.drivetrain.getOrigIMUGetYaw() - iMUStart;
+		
+		if (rot == 0.0) {
+			selfStraght = iMUDiffrence*.05;
+		}
+		
+    	Robot.drivetrain.driveFieldOrientated(x, y, selfStraght);
+//		System.out.println(name + " exec end");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	int leftMotorsMin = Math.min(Math.abs(Robot.drivetrain.frontLeftEncoderValue()), Math.abs(Robot.drivetrain.backLeftEncoderValue()));
-    	int rightMotorsMin = Math.min(Math.abs(Robot.drivetrain.frontRightEncoderValue()), Math.abs(Robot.drivetrain.backRightEncoderValue()));
+    	int leftMotorsMin = Math.min(Math.abs(Robot.drivetrain.frontLeftEncoderValue()-startEncoderValueFrontLeft), Math.abs(Robot.drivetrain.backLeftEncoderValue()-startEncoderValueBackLeft));
+    	int rightMotorsMin = Math.min(Math.abs(Robot.drivetrain.frontRightEncoderValue()-startEncoderValueFrontRight), Math.abs(Robot.drivetrain.backRightEncoderValue()-startEncoderValueBackRight));
     	
     	SmartDashboard.putNumber("LeftMotorsMin", leftMotorsMin);
     	SmartDashboard.putNumber("RightMotorsMin", rightMotorsMin);
     	
-    	if(Math.min(leftMotorsMin, rightMotorsMin) >= dis && goTime) {
+    	if(Math.min(leftMotorsMin, rightMotorsMin) >= dis) {
         	Robot.drivetrain.driveFieldOrientated(0.0, 0.0, 0.0);
 			System.out.println(name + " isFinished");
+			System.out.println("Finished" + Robot.drivetrain.backRightEncoderValue() + "		" + Robot.drivetrain.frontRightEncoderValue() + "		" + Robot.drivetrain.backLeftEncoderValue() + "	" + Robot.drivetrain.frontLeftEncoderValue());
+	    	
         	return true; 
         } else {
         	return false;

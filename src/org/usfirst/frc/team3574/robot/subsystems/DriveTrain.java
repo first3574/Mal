@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -21,6 +22,12 @@ public class DriveTrain extends Subsystem {
     SerialPort serial_port;
     boolean first_iteration;
     private BuiltInAccelerometer accel;
+    
+    double framecount;
+	double disFromCen;
+	double posY;
+	double posX;
+	NetworkTable net;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -49,6 +56,8 @@ public class DriveTrain extends Subsystem {
 		talonInit(frontLeftMotor);
 		talonInit(backRightMotor);
 		talonInit(frontRightMotor);
+		
+		net = NetworkTable.getTable("Vision");
 		
 		try {
 			serial_port = new SerialPort(57600, SerialPort.Port.kMXP);
@@ -95,10 +104,14 @@ public class DriveTrain extends Subsystem {
 	
 	private double getYaw() {
 		if (imu != null) {
-			return (imu.getYaw() + 90) % 360;  // imu goes -180 to 180
+			return (imu.getYaw() + 90) % 360;  // imu without mods goes -180 to 180
 		} else {
 			return 270.0;
 		}
+	}
+	
+	public double getOrigIMUGetYaw() {
+		return imu.getYaw();
 	}
 	
 	public void resetCounters() {
@@ -238,6 +251,15 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
 		SmartDashboard.putNumber("backLeftMotorCurent", backRightMotor.getOutputCurrent());
 		SmartDashboard.putNumber("backRightMotorCurent", backLeftMotor.getOutputCurrent());
+		
+		
+		disFromCen = net.getNumber("Distance From Center");
+    	posX = net.getNumber("Position X");
+    	posY = net.getNumber("Position Y");
+    	framecount = net.getNumber("Frame Count");
+    	SmartDashboard.putBoolean("disFromCen < -5", disFromCen < -5);
+    	SmartDashboard.putBoolean("disFromCen > 5", disFromCen > 5);
+    	SmartDashboard.putNumber("disFromCen", disFromCen);
 	}
 	
 }

@@ -92,9 +92,13 @@ public class ToteLifterUpper extends Subsystem {
     	return ! elevatorMotor.isFwdLimitSwitchClosed();
     }
     
+    public double getElevatorOffest() {
+    	return (this.bottomLimitSwitchPosition - elevatorMotor.getAnalogInRaw());
+    }
+    
     public void Log() {
     	SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
-    	SmartDashboard.putNumber("Elavator Petentiometer Offset", this.bottomLimitSwitchPosition - elevatorMotor.getAnalogInRaw());
+    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
     	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
     	SmartDashboard.putBoolean("Bottom Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
     	SmartDashboard.putBoolean("Top Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());

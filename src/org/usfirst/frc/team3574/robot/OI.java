@@ -5,6 +5,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRotate;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForHalfSecond;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
+import org.usfirst.frc.team3574.robot.commands.totelifter.AutoLifterUpper;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
 import org.usfirst.frc.team3574.robot.commands.totelifter.ManualLifterDowner;
@@ -12,6 +13,8 @@ import org.usfirst.frc.team3574.robot.commands.totelifter.ManualLifterUper;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
+import org.usfirst.frc.team3574.util.MakeJoyTrig;
+import org.usfirst.frc.team3574.util.TrigerButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -61,50 +64,91 @@ public class OI {
 //    	iB.whenPressed(new Calibrate());
     	
     	// For PS3 control mode
-    	JoystickButton buttonST = new JoystickButton(stick, 12);  						 //PS3 = 10
+    	
+//    	JoystickButton buttonTrigger = new JoystickButton(stick, 1);  						
+//    	buttonTrigger.whenPressed(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET));
+    	
+    	JoystickButton button3 = new JoystickButton(stick, 3);  						
+    	button3.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
+    	
+    	JoystickButton button4 = new JoystickButton(stick, 4);  						
+    	button4.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
+    	
+    	JoystickButton buttonX = new JoystickButton(stick, 7);   						//PS3 = 2
+    	buttonX.whenPressed(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET));
+    	
+    	JoystickButton buttonST = new JoystickButton(stick, 8);  						 //PS3 = 10
     	buttonST.whenPressed(new ResetYaw());
     	
-    	JoystickButton buttonX = new JoystickButton(stick, 6);   						//PS3 = 2
-    	buttonX.whenPressed(new MoveElevatorTo(ToteLifterUpper.CARRY_LEVEL_OFFSET));
+    	JoystickButton button9 = new JoystickButton(stick, 9);  						
+    	button9.whenPressed(new MoveElevatorTo(ToteLifterUpper.CARRY_LEVEL_OFFSET));
     	
-    	JoystickButton buttonCircle = new JoystickButton(stick, 7);						//PS3 = 3
+    	JoystickButton buttonCircle = new JoystickButton(stick, 11);						//PS3 = 3
     	buttonCircle.whenPressed(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
     	
-    	JoystickButton buttonSquare = new JoystickButton(stick, 5); 					//PS3 = 1
-    	buttonSquare.whenPressed(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET));
+       	JoystickButton button6 = new JoystickButton(stick, 6);				
+    	button6.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_OUT));
     	
-    	JoystickButton buttonL1 = new JoystickButton(stick, 2);							//PS3 = 5
-    	buttonL1.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
-    	
-    	JoystickButton buttonL3 = new JoystickButton(stick, 4);						//PS3 = 11
-    	buttonL3.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
+    	JoystickButton button5 = new JoystickButton(stick, 5);		
+    	button5.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_IN));
     	
     	
-    	JoystickButton buttonR2 = new JoystickButton(stick, 9);							//PS3 = 8
+    	JoystickButton buttonR2 = new JoystickButton(stick, 10);							//PS3 = 8
     	buttonR2.whileHeld(new ManualLifterUper());
-    	JoystickButton button1L2 = new JoystickButton(stick, 10);						//PS3 = 7
+    	JoystickButton button1L2 = new JoystickButton(stick, 12);						//PS3 = 7
     	button1L2.whileHeld(new ManualLifterDowner());
-    	
-//    	JoystickButton povFor = new JoystickButton(stick, stick.)
-    	
+//
+//    	
+
+//    	
+//    	JoystickButton buttonX = new JoystickButton(stick, 6);   						//PS3 = 2
+//    	buttonX.whenPressed(new MoveElevatorTo(ToteLifterUpper.CARRY_LEVEL_OFFSET));
+//    	
+//    	JoystickButton buttonCircle = new JoystickButton(stick, 7);						//PS3 = 3
+//    	buttonCircle.whenPressed(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+//    	
+//    	JoystickButton buttonSquare = new JoystickButton(stick, 5); 					//PS3 = 1
+//    	buttonSquare.whenPressed(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET));
+//    	
+//    	JoystickButton buttonL1 = new JoystickButton(stick, 2);							//PS3 = 5
+//    	buttonL1.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
+//    	
+//    	JoystickButton buttonL3 = new JoystickButton(stick, 4);						//PS3 = 11
+//    	buttonL3.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
+//    	
+//    	
+//    	JoystickButton buttonR2 = new JoystickButton(stick, 9);							//PS3 = 8
+//    	buttonR2.whileHeld(new ManualLifterUper());
+//    	JoystickButton button1L2 = new JoystickButton(stick, 10);						//PS3 = 7
+//    	button1L2.whileHeld(new ManualLifterDowner());
+//    	
+////    	JoystickButton povFor = new JoystickButton(stick, stick.)
+//    	
     	JoystickButton buttonA2 = new JoystickButton(stick2, 1);			
     	buttonA2.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));
     	
     	JoystickButton buttonB2 = new JoystickButton(stick2, 2);				
     	buttonB2.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_OUT));
     	
-//    	JoystickButton buttonB2 = new JoystickButton(stick2, 2);					
-//    	buttonB2.whileActive(new CollectWithJoy(Collector.DONT_DO_ANYTHING, Collector.DONT_DO_ANYTHING));
-    	
     	JoystickButton buttonX2 = new JoystickButton(stick2, 3);		
     	buttonX2.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_IN));
     	
     	JoystickButton buttonY2 = new JoystickButton(stick2, 4);					
     	buttonY2.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
+    	
+    	JoystickButton leftBumper = new JoystickButton(stick2, 5);  						
+    	leftBumper.whenPressed(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	JoystickButton back = new JoystickButton(stick2, 7);  						
+    	back.whenPressed(new MoveElevatorTo(ToteLifterUpper.CARRY_LEVEL_OFFSET));
+    	JoystickButton rightBummper = new JoystickButton(stick2, 6);  						
+    	rightBummper.whenPressed(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET));
   	
     	JoystickButton buttonStart2 = new JoystickButton(stick2, 8);		
 //    	buttonStart2.whenPressed(new Calibrate());
     	buttonStart2.whenPressed(new CalibrateAndGoToStart());
+    	
+    	TrigerButton rightTrig = new TrigerButton(stick2, 3);
+    	rightTrig.whileActive(new AutoLifterUpper(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET, ToteLifterUpper.STACK_LEVEL_OFFSET));
      	
     	
 //    	JoystickButton buttonLB2 = new JoystickButton(stick2, 5);						//PS3 = 5
@@ -155,12 +199,13 @@ public class OI {
     }
     
     public double joystickZ() {
-    	return -stick.getRawAxis(3) + -stick.getRawAxis(4); //+ (stick2.getRawAxis(3) - stick2.getRawAxis(2)) + stick2.getRawAxis(4);		//PS3 was 2 
+    	return -stick.getRawAxis(2);// + -stick.getRawAxis(4) + (stick2.getRawAxis(3) - stick2.getRawAxis(2)) + stick2.getRawAxis(4);		//PS3 was 2 
     }																											
     
     public double joystickThrottle() {									//PS3 was -3
-    	return stick.getRawAxis(2);									    
+    	return stick.getRawAxis(3);									    
     }
+    
     public boolean isTriggerPulled() {
     	return stick.getRawButton(1);								   //PS3 was 6
     }

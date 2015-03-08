@@ -4,6 +4,7 @@ import org.usfirst.frc.team3574.robot.OI;
 import org.usfirst.frc.team3574.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -15,11 +16,13 @@ public class DriveWithJoy extends Command {
 	double scaledX, scaledY, scaledZ;
 	OI oI = Robot.oi;
 	final private double MAKE_GO_STRAIGHT = 0.9;
+	
 
 	public DriveWithJoy() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drivetrain);
 		System.out.println("drive with joy started");
+		
 	}
 
 	// Called just before this Command runs the first time
@@ -30,14 +33,19 @@ public class DriveWithJoy extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
+		
+    	
 		if(Math.abs(oI.joystickX()) > MAKE_GO_STRAIGHT || (Math.abs(oI.joystickY()) > MAKE_GO_STRAIGHT)){
 			deadZone = .3;
 		} else {
 			deadZone = .05;
 		}
-
-		throttle = ((-oI.joystickThrottle() + 1) / 4) +.5;
+		
+		if (oI.isTriggerPulled()) {
+			throttle = 1;
+		} else {
+			throttle = ((-oI.joystickThrottle() + 1) / 4) +.5;
+		}
 
 		scaledX = Math.abs(-oI.joystickX()) < deadZone ? 0.0 : -oI.joystickX() * throttle;
 		scaledY = Math.abs(-oI.joystickY()) < deadZone ? 0.0 : -oI.joystickY() * throttle; 
@@ -46,13 +54,10 @@ public class DriveWithJoy extends Command {
 		scaledY = joystickScale(scaledY);				
 		scaledZ = joystickScale(scaledZ);
 
+		Robot.drivetrain.driveFieldOrientated(scaledX, scaledY, scaledZ, throttle);
+		
 		SmartDashboard.putNumber("Scaled Y", scaledY);
 
-		if (!oI.isTriggerPulled()) {
-			Robot.drivetrain.driveFieldOrientated(scaledX, scaledY, scaledZ, throttle);
-		} else {
-			Robot.drivetrain.driveRobotOrientated(scaledX, scaledY, scaledZ, throttle);
-		}
 	}
 
 

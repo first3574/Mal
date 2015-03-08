@@ -3,6 +3,7 @@ package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
 import org.usfirst.frc.team3574.robot.commands.AutonomousGoSpin;
+import org.usfirst.frc.team3574.robot.commands.AutonomousVision;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3574.robot.subsystems.StepGrabber;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import org.usfirst.frc.team3574.robot.commands.ExampleCommand;
 //import org.usfirst.frc.team3574.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,7 +33,8 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain drivetrain;
 	public static ToteLifterUpper totelifterupper;
 	public static Collector collector;
-
+	SendableChooser autoChooser;
+	   
     Command autonomousCommand;
 
     /**
@@ -45,11 +48,18 @@ public class Robot extends IterativeRobot {
 		stepgrabber = new StepGrabber(); 
 		oi = new OI();
 		
+
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
+		autoChooser.addObject("vision", new AutonomousVision());
 		
         // instantiate the command used for the autonomous period
 		autonomousCommand = new AutomousPickUpTotels();
+
+		SmartDashboard.putData("Autonomous Mode", autoChooser);
 		
-        SmartDashboard.putData(drivetrain);
+		SmartDashboard.putData(Scheduler.getInstance());
+		SmartDashboard.putData(drivetrain);
     }
 	
 	public void disabledPeriodic() {
@@ -61,11 +71,13 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-    	autonomousCommand = new AutomousPickUpTotels();
-        if (autonomousCommand != null) autonomousCommand.start();
+//        // schedule the autonomous command (example)
+//    	autonomousCommand = new AutomousPickUpTotels();
+//        if (autonomousCommand != null) autonomousCommand.start();
         totelifterupper.setElevatorPosAtCurent();
-    }
+    	autonomousCommand = (Command) autoChooser.getSelected();
+    	autonomousCommand.start();
+   	}
 
     /**
      * This function is called periodically during autonomous

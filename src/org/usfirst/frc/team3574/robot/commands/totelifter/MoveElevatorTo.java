@@ -4,6 +4,7 @@ import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -12,6 +13,7 @@ public class MoveElevatorTo extends Command {
 	
 	private double sP = 0.0;
 	int count;
+	boolean isDone;
 
     public MoveElevatorTo(double setPoint) {
         // Use requires() here to declare subsystem dependencies
@@ -23,6 +25,7 @@ public class MoveElevatorTo extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	count = 0;
+    	isDone = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,11 +40,17 @@ public class MoveElevatorTo extends Command {
 //			break;
 //		}  p 20 D 6
     	Robot.totelifterupper.setSetpointOffset(sP);
+    	SmartDashboard.putNumber("Set Point", -sP);
+    	SmartDashboard.putBoolean("-sP+10", (Robot.totelifterupper.getElevatorOffest() <=(-sP+10)));
+    	SmartDashboard.putBoolean("-sP-10", (Robot.totelifterupper.getElevatorOffest() >=(-sP-10)));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	if (Robot.totelifterupper.getElevatorOffest() <=(-sP+15) && Robot.totelifterupper.getElevatorOffest() >=(-sP-15)) {
+    		isDone = true;
+    	}
+        return isDone;
     }
 
     // Called once after isFinished returns true

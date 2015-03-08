@@ -1,8 +1,9 @@
 package org.usfirst.frc.team3574.util;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 
-public class MakeJoyTrig {
+public class MakeJoyTrig extends Button {
 
 	Joystick joystick;
 	int axis;
