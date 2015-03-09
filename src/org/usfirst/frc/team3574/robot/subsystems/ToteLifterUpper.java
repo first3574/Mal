@@ -12,7 +12,7 @@ public class ToteLifterUpper extends Subsystem {
 	CANTalon elevatorMotor;
 	double bottomLimitSwitchPosition = 1000;
 	boolean isGoingDown;
-	DigitalInput stopLiftSwitch = new DigitalInput(0);
+	DigitalInput switchForCrateInRobot = new DigitalInput(0);
 	
 
 	// Production Robot start carry load contact
@@ -48,8 +48,8 @@ public class ToteLifterUpper extends Subsystem {
 		
 	}
 	
-	public boolean stopLiftSwitch() {
-		return stopLiftSwitch.get();
+	public boolean isToteInRobot() {
+		return !switchForCrateInRobot.get();// switch is false when crate is in robot
 	}
 	
 	public void calibrateBottomToCurrentPos() {
@@ -112,7 +112,7 @@ public class ToteLifterUpper extends Subsystem {
     	SmartDashboard.putNumber("out put Volt", elevatorMotor.getOutputVoltage());
     	SmartDashboard.putNumber("bus Volt", elevatorMotor.getBusVoltage());
     	SmartDashboard.putNumber("currint Motor", elevatorMotor.getOutputCurrent());
-    	SmartDashboard.putBoolean("Ato Lift Limit Switch", stopLiftSwitch());
+    	SmartDashboard.putBoolean("Ato Lift Limit Switch", isToteInRobot());
     	
     	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
     		double pValue = SmartDashboard.getNumber("P");
@@ -128,9 +128,6 @@ public class ToteLifterUpper extends Subsystem {
     	}
     	if (SmartDashboard.getNumber("D") != elevatorMotor.getD()) {
     		elevatorMotor.setD(SmartDashboard.getNumber("D"));
-    	}
-    	if (SmartDashboard.getNumber("F") != elevatorMotor.getF()) {
-    		elevatorMotor.setF(SmartDashboard.getNumber("F"));
     	}
     }
 }

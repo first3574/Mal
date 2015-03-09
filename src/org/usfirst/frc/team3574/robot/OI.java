@@ -2,10 +2,11 @@ package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.CollectWithJoy;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRotate;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForHalfSecond;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForTime;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
-import org.usfirst.frc.team3574.robot.commands.totelifter.AutoLifterUpper;
+import org.usfirst.frc.team3574.robot.commands.totelifter.DownerUpperWhenToteIsInRobot;
+import org.usfirst.frc.team3574.robot.commands.totelifter.WaitUntilSwitchClicker;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
 import org.usfirst.frc.team3574.robot.commands.totelifter.ManualLifterDowner;
@@ -58,7 +59,7 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     public OI() {
 //    	JoystickButton buttonA = new JoystickButton(stick, 1);
-//    	buttonA.whenPressed(new DriveForHalfSecond());
+//    	buttonA.whenPressed(new DriveForTime());
     	
 //    	InternalButton iB = new InternalButton();
 //    	iB.whenPressed(new Calibrate());
@@ -148,9 +149,9 @@ public class OI {
     	buttonStart2.whenPressed(new CalibrateAndGoToStart());
     	
     	TrigerButton rightTrig = new TrigerButton(stick2, 3);
-    	rightTrig.whileActive(new AutoLifterUpper(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET, ToteLifterUpper.STACK_LEVEL_OFFSET));
+    	rightTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo(ToteLifterUpper.STACK_LEVEL_OFFSET)));
     	TrigerButton leftTrig = new TrigerButton(stick2, 2);
-    	leftTrig.whileActive(new AutoLifterUpper(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET, ToteLifterUpper.CARRY_LEVEL_OFFSET));
+    	leftTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo(ToteLifterUpper.CARRY_LEVEL_OFFSET)));
      	
     	
 //    	JoystickButton buttonLB2 = new JoystickButton(stick2, 5);						//PS3 = 5

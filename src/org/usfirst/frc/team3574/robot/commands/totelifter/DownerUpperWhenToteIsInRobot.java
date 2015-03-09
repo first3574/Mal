@@ -1,15 +1,19 @@
-package org.usfirst.frc.team3574.robot.commands;
+package org.usfirst.frc.team3574.robot.commands.totelifter;
 
-import org.usfirst.frc.team3574.robot.commands.drivetrain.Spin;
+import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonomousGoSpin extends CommandGroup {
     
-    public  AutonomousGoSpin() {
+public class DownerUpperWhenToteIsInRobot extends CommandGroup {
+    public  DownerUpperWhenToteIsInRobot(Command targetHeightCommand) {
+    	addSequential(new WaitUntilSwitchClicker());
+    	addSequential(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	addSequential(targetHeightCommand);
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,8 +30,5 @@ public class AutonomousGoSpin extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	//addSequential(new DriveForTime());
-        addSequential(new Spin());
     }
 }

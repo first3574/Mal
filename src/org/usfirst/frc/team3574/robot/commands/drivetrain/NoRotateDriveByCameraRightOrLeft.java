@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveByCameraRightOrLeft extends Command {
+public class NoRotateDriveByCameraRightOrLeft extends Command {
 
 	boolean isDone = false;
 	
@@ -28,7 +28,7 @@ public class DriveByCameraRightOrLeft extends Command {
 	 * 
 	 * @param lateralSpeed - Left is positive right is negative
 	 */
-    public DriveByCameraRightOrLeft(double lateralSpeed) {
+    public NoRotateDriveByCameraRightOrLeft(double lateralSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);rightOrLeft
     	requires (Robot.drivetrain);
@@ -59,9 +59,9 @@ public class DriveByCameraRightOrLeft extends Command {
     	if (posX == -1 && posY == -1) {
     		Robot.drivetrain.driveFieldOrientated(speed, 0, selfStraght);
     	} else if (disFromCen < -5) {
-    		Robot.drivetrain.driveFieldOrientated(-.1, -.1, selfStraght);
+    		Robot.drivetrain.driveFieldOrientated(-.1, 0, selfStraght);
     	} else if (disFromCen > 5) {
-    		Robot.drivetrain.driveFieldOrientated(.1, -.1, selfStraght);
+    		Robot.drivetrain.driveFieldOrientated(.1, 0, selfStraght);
     	} else {
     		Robot.drivetrain.driveFieldOrientated(0, 0, 0);
     		isDone = true;

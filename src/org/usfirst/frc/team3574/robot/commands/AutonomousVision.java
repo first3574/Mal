@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands;
 
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRightOrLeft;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.NoRotateDriveByCameraRightOrLeft;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousVision extends CommandGroup {
     
     public  AutonomousVision() {
-    	addSequential(new DriveByCameraRightOrLeft(0.5));
+    	addSequential(new NoRotateDriveByCameraRightOrLeft(0.5));
 
     	
         // Add Commands here:
