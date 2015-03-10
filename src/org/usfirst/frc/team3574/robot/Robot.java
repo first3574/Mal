@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
 		autoChooser.addObject("vision", new AutomousVision());
 		autoChooser.addObject("ShovelTotes", new AutomousPushToteToScore());
-		autoChooser.addObject("ShovelTotes", new AutomousStrafeToteToScore());
+		autoChooser.addObject("Grab Recycle and Tote", new AutomousStrafeToteToScore());
 		
         // instantiate the command used for the autonomous period
 		autonomousCommand = new AutomousPickUpTotels();

@@ -17,15 +17,15 @@ public class AutomousStrafeToteToScore extends CommandGroup {
     
     public  AutomousStrafeToteToScore() {
     	addSequential(new CalibrateAndGoToStart());
-    	addSequential(new ResetYaw(90.0));
-    	addSequential(new DriveWithDistance(-.75, 0, 0, 500));
-    	addSequential(new StackRecyclingContainer(false));
+    	addSequential(new ResetYaw(270.0));
+    	addSequential(new DriveWithDistance(-.75, 0, 0, 200));
+//    	addSequential(new StackRecyclingContainer(false));
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN), 3);
-    	addSequential(new DriveWithDistance(-.75, 0, 0, 500));
+    	addSequential(new DriveWithDistance(-.75, 0, 0, 200));
     	addSequential(new DriveWithDistance(0, 1, 0, 2000));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
-    	addSequential(new DriveWithDistance(.5, 0, 0, 500));
+    	addSequential(new DriveWithDistance(.5, 0, 0, 200));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());
