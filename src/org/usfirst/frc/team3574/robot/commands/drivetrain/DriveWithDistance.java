@@ -23,6 +23,18 @@ public class DriveWithDistance extends Command {
 	double selfStraght;
 	double iMUStart;
 	double iMUDiffrence;
+	double[] fLEncHistory = {-1, -1, -1, -1, -1};
+	double[] fREncHistory = {-1, -1, -1, -1, -1};
+	double[] bLEncHistory = {-1, -1, -1, -1, -1};
+	double[] bREncHistory = {-1, -1, -1, -1, -1};
+	int fLEncHistoryP = 0;
+	int fREncHistoryP = 0;
+	int bLEncHistoryP = 0;
+	int bREncHistoryP = 0;
+	boolean fLEncBroken = false;
+	boolean fREncBroken = false;
+	boolean bLEncBroken = false;
+	boolean bREncBroken = false;
 	
     public DriveWithDistance(double xSpeed, double ySpeed, double rotate, int distance) {
         // Use requires() here to declare subsystem dependencies
@@ -53,12 +65,51 @@ public class DriveWithDistance extends Command {
 		System.out.println(name + " init");
     	
     }
+    
+    boolean areAllSame(double[] array) {
+    	double firstItem = array[0];
+    	int binPos = 1;
+    	while (binPos < array.length && array[binPos] == firstItem) {
+    		binPos++;
+    	}
+    	
+    	if (binPos >= array.length){
+    		return true;
+    	}
+    	return false;
+    }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //		System.out.println(name + " exec start");
 //		System.out.println(name + Robot.drivetrain.backLeftEncoderValue());
-		
+    	
+    	fLEncHistory[fLEncHistoryP % 5] = Robot.drivetrain.frontLeftEncoderValue();
+    	fREncHistory[fREncHistoryP % 5] = Robot.drivetrain.frontRightEncoderValue();
+    	bLEncHistory[bLEncHistoryP % 5] = Robot.drivetrain.backLeftEncoderValue();
+    	bREncHistory[bREncHistoryP % 5] = Robot.drivetrain.backRightEncoderValue();
+    	fLEncHistoryP++;    //    //
+    	fREncHistoryP++;  //    ///
+    	bLEncHistoryP++;///////
+    	bREncHistoryP++;
+    	
+    	if (areAllSame(fLEncHistory))
+    		fLEncBroken = true;
+    	else
+    		fLEncBroken = false;
+    	if (areAllSame(fREncHistory))
+    		fREncBroken = true;
+    	else
+    		fLEncBroken = false;
+    	if (areAllSame(bLEncHistory))
+    		bLEncBroken = true;
+    	else
+    		fLEncBroken = false;
+    	if (areAllSame(bREncHistory))
+    		bREncBroken = true;
+    	else
+    		fLEncBroken = false;
+    	
 		iMUDiffrence = Robot.drivetrain.getOrigIMUGetYaw() - iMUStart;
 		
 		if (rot == 0.0) {
@@ -71,9 +122,12 @@ public class DriveWithDistance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	int leftMotorsMin = Math.min(Math.abs(Robot.drivetrain.frontLeftEncoderValue()-startEncoderValueFrontLeft), Math.abs(Robot.drivetrain.backLeftEncoderValue()-startEncoderValueBackLeft));
-    	int rightMotorsMin = Math.min(Math.abs(Robot.drivetrain.frontRightEncoderValue()-startEncoderValueFrontRight), Math.abs(Robot.drivetrain.backRightEncoderValue()-startEncoderValueBackRight));
-    	
+    	int fLEncV = fLEncBroken ? 9999999 : Math.abs(Robot.drivetrain.frontLeftEncoderValue()-startEncoderValueFrontLeft);
+    	int fREncV = fREncBroken ? 9999999 : Math.abs(Robot.drivetrain.frontRightEncoderValue()-startEncoderValueFrontRight);
+    	int bLEncV = bLEncBroken ? 9999999 : Math.abs(Robot.drivetrain.backLeftEncoderValue()-startEncoderValueBackLeft);
+    	int bREncV = bREncBroken ? 9999999 : Math.abs(Robot.drivetrain.frontRightEncoderValue()-startEncoderValueBackRight);
+    	int leftMotorsMin = Math.min(fLEncV, bLEncV);
+    	int rightMotorsMin = Math.min(fREncV, bREncV);
     	SmartDashboard.putNumber("LeftMotorsMin", leftMotorsMin);
     	SmartDashboard.putNumber("RightMotorsMin", rightMotorsMin);
     	

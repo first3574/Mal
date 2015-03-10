@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousGoSpin extends CommandGroup {
+public class AutomousGoSpin extends CommandGroup {
     
-    public  AutonomousGoSpin() {
+    public  AutomousGoSpin() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

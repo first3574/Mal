@@ -15,7 +15,7 @@ public class ManualLifterUper extends Command {
     public ManualLifterUper() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.totelifterupper);
+    	requires(Robot.toteandrecyclelifterupper);
     }
 
     // Called just before this Command runs the first time
@@ -25,7 +25,7 @@ public class ManualLifterUper extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.totelifterupper.UpperOrDowner(-2);
+    	Robot.toteandrecyclelifterupper.UpperOrDowner(-2);
     }
 
     // Make this return true when this Command no longer needs to run execute()

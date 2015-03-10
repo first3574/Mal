@@ -18,7 +18,7 @@ public class MoveElevatorTo extends Command {
     public MoveElevatorTo(double setPoint) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.totelifterupper);
+    	requires(Robot.toteandrecyclelifterupper);
     	sP = setPoint;
     }
 
@@ -32,22 +32,22 @@ public class MoveElevatorTo extends Command {
     protected void execute() {
 //    	switch (count) {
 //		case 0:
-//			Robot.totelifterupper.setSetpointOffset(sP/2);
+//			Robot.toteandrecyclelifterupper.setSetpointOffset(sP/2);
 //			
 //			break;
 //
 //		default:
 //			break;
 //		}  p 20 D 6
-    	Robot.totelifterupper.setSetpointOffset(sP);
+    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
     	SmartDashboard.putNumber("Set Point", -sP);
-    	SmartDashboard.putBoolean("-sP+10", (Robot.totelifterupper.getElevatorOffest() <=(-sP+10)));
-    	SmartDashboard.putBoolean("-sP-10", (Robot.totelifterupper.getElevatorOffest() >=(-sP-10)));
+    	SmartDashboard.putBoolean("-sP+10", (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+10)));
+    	SmartDashboard.putBoolean("-sP-10", (Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-10)));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.totelifterupper.getElevatorOffest() <=(-sP+15) && Robot.totelifterupper.getElevatorOffest() >=(-sP-15)) {
+    	if (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+15) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-15)) {
     		isDone = true;
     	}
         return isDone;

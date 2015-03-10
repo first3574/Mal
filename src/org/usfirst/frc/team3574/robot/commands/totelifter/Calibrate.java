@@ -13,7 +13,7 @@ public class Calibrate extends Command {
     public Calibrate() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.totelifterupper);
+    	requires(Robot.toteandrecyclelifterupper);
 //    	SmartDashboard.putData(this);
     	
     }
@@ -26,11 +26,11 @@ public class Calibrate extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(timeSinceInitialized() < 0.5) {
-    		Robot.totelifterupper.UpperOrDowner(-5);
-        } else if (!Robot.totelifterupper.isBottomLimitTriped()){
-    		Robot.totelifterupper.UpperOrDowner(7);
+    		Robot.toteandrecyclelifterupper.UpperOrDowner(-5);
+        } else if (!Robot.toteandrecyclelifterupper.isBottomLimitTriped()){
+    		Robot.toteandrecyclelifterupper.UpperOrDowner(7);
     	} else {
-    		Robot.totelifterupper.calibrateBottomToCurrentPos();
+    		Robot.toteandrecyclelifterupper.calibrateBottomToCurrentPos();
     		
     		isDone = true;
     	}

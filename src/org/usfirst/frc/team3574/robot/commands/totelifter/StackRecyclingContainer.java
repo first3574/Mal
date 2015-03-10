@@ -17,7 +17,7 @@ public class StackRecyclingContainer extends Command {
     public StackRecyclingContainer(Boolean setOpen) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.totelifterupper);
+    	requires(Robot.toteandrecyclelifterupper);
     	oC = setOpen;
     	
     }
@@ -29,9 +29,9 @@ public class StackRecyclingContainer extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (oC = true) {
-    		Robot.totelifterupper.openRecycle();
+    		Robot.toteandrecyclelifterupper.openRecycle();
     	} else if (oC = false) {
-    		Robot.totelifterupper.closeRecycle();
+    		Robot.toteandrecyclelifterupper.closeRecycle();
     	}
     }
 

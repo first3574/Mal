@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousLog extends CommandGroup {
+public class AutomousLog extends CommandGroup {
 
-    public  AutonomousLog() {
+    public  AutomousLog() {
     	addSequential(new Log("firstCommand", 0.5));
     	addSequential(new Log("secondCommand", 0.5));
         // Add Commands here:

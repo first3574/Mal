@@ -3,8 +3,9 @@ package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
 import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
-import org.usfirst.frc.team3574.robot.commands.AutonomousGoSpin;
-import org.usfirst.frc.team3574.robot.commands.AutonomousVision;
+import org.usfirst.frc.team3574.robot.commands.AutomousGoSpin;
+import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteToScore;
+import org.usfirst.frc.team3574.robot.commands.AutomousVision;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3574.robot.subsystems.StepGrabber;
@@ -32,7 +33,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static StepGrabber stepgrabber;
 	public static DriveTrain drivetrain;
-	public static ToteAndRecycleLifterUpper totelifterupper;
+	public static ToteAndRecycleLifterUpper toteandrecyclelifterupper;
 	public static Collector collector;
 	SendableChooser autoChooser;
 	   
@@ -43,7 +44,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	totelifterupper = new ToteAndRecycleLifterUpper();
+    	toteandrecyclelifterupper = new ToteAndRecycleLifterUpper();
 		drivetrain = new DriveTrain();
 		collector = new Collector();
 		stepgrabber = new StepGrabber(); 
@@ -52,8 +53,9 @@ public class Robot extends IterativeRobot {
 
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
-		autoChooser.addObject("vision", new AutonomousVision());
+		autoChooser.addObject("vision", new AutomousVision());
 		autoChooser.addObject("ShovelTotes", new AutomousPushToteToScore());
+		autoChooser.addObject("ShovelTotes", new AutomousStrafeToteToScore());
 		
         // instantiate the command used for the autonomous period
 		autonomousCommand = new AutomousPickUpTotels();
@@ -68,7 +70,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		drivetrain.Log();
-		totelifterupper.Log();
+		toteandrecyclelifterupper.Log();
 		stepgrabber.Log();
 	}
 
@@ -76,7 +78,7 @@ public class Robot extends IterativeRobot {
 //        // schedule the autonomous command (example)
 //    	autonomousCommand = new AutomousPickUpTotels();
 //        if (autonomousCommand != null) autonomousCommand.start();
-        totelifterupper.setElevatorPosAtCurent();
+        toteandrecyclelifterupper.setElevatorPosAtCurent();
     	autonomousCommand = (Command) autoChooser.getSelected();
     	autonomousCommand.start();
    	}
@@ -88,7 +90,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         
         drivetrain.Log();
-		totelifterupper.Log();
+		toteandrecyclelifterupper.Log();
 		stepgrabber.Log();
     }
 
@@ -98,7 +100,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        totelifterupper.setElevatorPosAtCurent();
+        toteandrecyclelifterupper.setElevatorPosAtCurent();
     }
 
     /**
@@ -116,7 +118,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         
         drivetrain.Log();
-        totelifterupper.Log();
+        toteandrecyclelifterupper.Log();
         stepgrabber.Log();
     }
     

@@ -1,10 +1,10 @@
 package org.usfirst.frc.team3574.robot.commands;
 
-import org.usfirst.frc.team3574.robot.commands.drivetrain.NoRotateDriveByCameraRightOrLeft;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
-import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
+import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
+import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainer;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
@@ -13,15 +13,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousVision extends CommandGroup {
+public class AutomousStrafeToteToScore extends CommandGroup {
     
-    public  AutonomousVision() {
-    	addSequential(new NoRotateDriveByCameraRightOrLeft(0.5));
-
+    public  AutomousStrafeToteToScore() {
+    	addSequential(new CalibrateAndGoToStart());
+    	addSequential(new ResetYaw(90.0));
+    	addSequential(new DriveWithDistance(-.75, 0, 0, 500));
+    	addSequential(new StackRecyclingContainer(false));
+    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
+    	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN), 3);
+    	addSequential(new DriveWithDistance(-.75, 0, 0, 500));
+    	addSequential(new DriveWithDistance(0, 1, 0, 2000));
+    	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
+    	addSequential(new DriveWithDistance(.5, 0, 0, 500));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());
-//              addSequential(new Command2());
+        //      addSequential(new Command2());
         // these will run in order.
 
         // To run multiple commands at the same time,
