@@ -2,14 +2,18 @@ package org.usfirst.frc.team3574.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class ToteLifterUpper extends Subsystem {
+public class ToteAndRecycleLifterUpper extends Subsystem {
 	CANTalon elevatorMotor;
+	Solenoid leftSolenoid;
+	Solenoid rightSolenoid;
+	
 	double bottomLimitSwitchPosition = 1000;
 	boolean isGoingDown;
 	DigitalInput switchForCrateInRobot = new DigitalInput(0);
@@ -22,7 +26,7 @@ public class ToteLifterUpper extends Subsystem {
 
 	
 	
-	public ToteLifterUpper() {
+	public ToteAndRecycleLifterUpper() {
 //		 postion 633.00 
 		SmartDashboard.putNumber("scale", 1.0);
 	    SmartDashboard.putNumber("P", 20);
@@ -45,6 +49,9 @@ public class ToteLifterUpper extends Subsystem {
 		elevatorMotor.ConfigRevLimitSwitchNormallyOpen(false);
 		
 		SmartDashboard.putData(this);
+		
+    	leftSolenoid = new Solenoid(3);
+    	rightSolenoid = new Solenoid(4);
 		
 	}
 	
@@ -79,6 +86,16 @@ public class ToteLifterUpper extends Subsystem {
 		
 		elevatorMotor.set(newSetPoint);
 	}
+	
+	public void openRecycle() {
+    	leftSolenoid.set(true);
+    	rightSolenoid.set(true);
+    }
+    public void closeRecycle() {
+    	leftSolenoid.set(false);
+    	rightSolenoid.set(false);
+    }
+    
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 

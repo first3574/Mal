@@ -1,36 +1,43 @@
 package org.usfirst.frc.team3574.robot.commands.totelifter;
 
 import org.usfirst.frc.team3574.robot.Robot;
-import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ManualLifterUper extends Command {
-	
+public class StackRecyclingContainer extends Command {
+	boolean oC;
 
-    public ManualLifterUper() {
+	/**
+	 * Use to open/close recycle arms.
+	 * @param setOpen True = Open and False = close
+	 */
+    public StackRecyclingContainer(Boolean setOpen) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.totelifterupper);
+    	oC = setOpen;
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.totelifterupper.UpperOrDowner(-2);
+    	if (oC = true) {
+    		Robot.totelifterupper.openRecycle();
+    	} else if (oC = false) {
+    		Robot.totelifterupper.closeRecycle();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

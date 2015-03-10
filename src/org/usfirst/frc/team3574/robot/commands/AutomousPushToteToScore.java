@@ -13,7 +13,7 @@ public class AutomousPushToteToScore extends CommandGroup {
     
     public  AutomousPushToteToScore() {
     	addSequential(new CalibrateAndGoToStart());
-    	addSequential(new ResetYaw());
+    	addSequential(new ResetYaw(180));
     	addSequential(new DriveWithDistance(0, 1, 0, 5000));
     	addSequential(new DriveWithDistance(0, -.5, 0, 200));
         // Add Commands here:

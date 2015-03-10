@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands.totelifter;
 
-import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
+import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,7 +11,7 @@ public class CalibrateAndGoToStart extends CommandGroup {
     
     public  CalibrateAndGoToStart() {
     	addSequential(new Calibrate());
-    	addSequential(new MoveElevatorTo(ToteLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

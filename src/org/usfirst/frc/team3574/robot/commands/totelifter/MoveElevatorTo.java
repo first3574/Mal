@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3574.robot.commands.totelifter;
 
 import org.usfirst.frc.team3574.robot.Robot;
-import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
+import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

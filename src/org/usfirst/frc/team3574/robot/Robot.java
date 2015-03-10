@@ -8,7 +8,7 @@ import org.usfirst.frc.team3574.robot.commands.AutonomousVision;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3574.robot.subsystems.StepGrabber;
-import org.usfirst.frc.team3574.robot.subsystems.ToteLifterUpper;
+import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static StepGrabber stepgrabber;
 	public static DriveTrain drivetrain;
-	public static ToteLifterUpper totelifterupper;
+	public static ToteAndRecycleLifterUpper totelifterupper;
 	public static Collector collector;
 	SendableChooser autoChooser;
 	   
@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-    	totelifterupper = new ToteLifterUpper();
+    	totelifterupper = new ToteAndRecycleLifterUpper();
 		drivetrain = new DriveTrain();
 		collector = new Collector();
 		stepgrabber = new StepGrabber(); 
