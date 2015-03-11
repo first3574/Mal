@@ -39,15 +39,20 @@ public class MoveElevatorTo extends Command {
 //		default:
 //			break;
 //		}  p 20 D 6
+    	
     	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
     	SmartDashboard.putNumber("Set Point", -sP);
-    	SmartDashboard.putBoolean("-sP+10", (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+10)));
-    	SmartDashboard.putBoolean("-sP-10", (Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-10)));
+    	SmartDashboard.putBoolean("-sP+7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+7.5)));
+    	SmartDashboard.putBoolean("-sP-7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-7.5)));
+    	
+    	if (Robot.toteandrecyclelifterupper.isGoingDown) {
+    		Robot.toteandrecyclelifterupper.openRecycle();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+15) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-15)) {
+    	if (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+7.5) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-7.5)) {
     		isDone = true;
     	}
         return isDone;

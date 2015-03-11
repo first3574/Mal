@@ -14,7 +14,6 @@ import org.usfirst.frc.team3574.robot.commands.totelifter.ManualLifterUper;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
-import org.usfirst.frc.team3574.util.MakeJoyTrig;
 import org.usfirst.frc.team3574.util.TrigerButton;
 
 import edu.wpi.first.wpilibj.Joystick;

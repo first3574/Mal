@@ -20,8 +20,8 @@ public class StepGrabber extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public StepGrabber(){
-    	lifterThing = new Solenoid(1);
-    	pusherThing = new Solenoid(2);
+    	lifterThing = new Solenoid(2);
+    	pusherThing = new Solenoid(3);
     	time = new Timer();
     	
     	time.reset();

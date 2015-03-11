@@ -15,7 +15,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	Solenoid rightSolenoid;
 	
 	double bottomLimitSwitchPosition = 1000;
-	boolean isGoingDown;
+	public boolean isGoingDown;
 	DigitalInput switchForCrateInRobot = new DigitalInput(0);
 	
 
@@ -50,8 +50,8 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 		
 		SmartDashboard.putData(this);
 		
-    	leftSolenoid = new Solenoid(3);
-    	rightSolenoid = new Solenoid(4);
+    	leftSolenoid = new Solenoid(0);
+    	rightSolenoid = new Solenoid(1);
 		
 	}
 	
@@ -73,12 +73,12 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void setSetpointOffset(double offset) {
-		int pastPos = elevatorMotor.getAnalogInRaw();
+		int currentPos = elevatorMotor.getAnalogInRaw();
 		int newSetPoint = (int) (bottomLimitSwitchPosition + offset);
 		
-		isGoingDown = false;
+		isGoingDown = currentPos  < newSetPoint;
 				
-		if (pastPos  < newSetPoint) {
+		if (currentPos  < newSetPoint) {
 			isGoingDown = true;
 		}
 		
@@ -126,10 +126,12 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
     	SmartDashboard.putBoolean("Bottom Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
     	SmartDashboard.putBoolean("Top Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
-    	SmartDashboard.putNumber("out put Volt", elevatorMotor.getOutputVoltage());
     	SmartDashboard.putNumber("bus Volt", elevatorMotor.getBusVoltage());
-    	SmartDashboard.putNumber("currint Motor", elevatorMotor.getOutputCurrent());
-    	SmartDashboard.putBoolean("Ato Lift Limit Switch", isToteInRobot());
+    	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
+		SmartDashboard.putNumber("Elevator Motor Current", elevatorMotor.getOutputCurrent());
+    	SmartDashboard.putNumber("Elevator Motor Volt", elevatorMotor.getOutputVoltage());
+    	SmartDashboard.putBoolean("LeftSolenoidState", leftSolenoid.get());
+    	SmartDashboard.putBoolean("RightSolenoidState", rightSolenoid.get());
     	
     	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
     		double pValue = SmartDashboard.getNumber("P");

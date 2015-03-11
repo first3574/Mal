@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StackRecyclingContainer extends Command {
+public class StackRecyclingContainerOpenArms extends Command {
 	boolean oC;
 
 	/**
 	 * Use to open/close recycle arms.
-	 * @param setOpen True = Open and False = close
+	 * @param setOpen True = Open and False = Close
 	 */
-    public StackRecyclingContainer(Boolean setOpen) {
+    public StackRecyclingContainerOpenArms(Boolean setOpen) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.toteandrecyclelifterupper);
@@ -37,7 +37,7 @@ public class StackRecyclingContainer extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

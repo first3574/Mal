@@ -253,9 +253,9 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("frontRightEncoder", frontRightMotor.getEncPosition());
 		SmartDashboard.putNumber("backLeftEncoder", backLeftMotor.getEncPosition());
 		SmartDashboard.putNumber("backRightEncoder", backRightMotor.getEncPosition());
-		SmartDashboard.putNumber("frontLeftMotorSpeed", frontLeftMotor.getSpeed());
+		SmartDashboard.putNumber("frontLeftMotorSpeed", -frontLeftMotor.getSpeed());
 		SmartDashboard.putNumber("frontRightMotorSpeed", frontRightMotor.getSpeed());
-		SmartDashboard.putNumber("backLeftMotorSpeed", backLeftMotor.getSpeed());
+		SmartDashboard.putNumber("backLeftMotorSpeed", -backLeftMotor.getSpeed());
 		SmartDashboard.putNumber("backRightMotorSpeed", backRightMotor.getSpeed());
 		SmartDashboard.putNumber("frontLeftMotorCurent", frontRightMotor.getOutputCurrent());
 		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
