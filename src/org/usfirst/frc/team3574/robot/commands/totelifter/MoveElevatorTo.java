@@ -26,6 +26,8 @@ public class MoveElevatorTo extends Command {
     protected void initialize() {
     	count = 0;
     	isDone = false;
+    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,7 +42,6 @@ public class MoveElevatorTo extends Command {
 //			break;
 //		}  p 20 D 6
     	
-    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
     	SmartDashboard.putNumber("Set Point", -sP);
     	SmartDashboard.putBoolean("-sP+7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+7.5)));
     	SmartDashboard.putBoolean("-sP-7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-7.5)));

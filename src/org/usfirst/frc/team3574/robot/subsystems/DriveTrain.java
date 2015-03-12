@@ -249,18 +249,19 @@ public class DriveTrain extends Subsystem {
 		if(imu != null){
 			SmartDashboard.putNumber("Orentation", imu.getYaw());
 		}
-		SmartDashboard.putNumber("frontLeftEncoder", frontLeftMotor.getEncPosition());
-		SmartDashboard.putNumber("frontRightEncoder", frontRightMotor.getEncPosition());
-		SmartDashboard.putNumber("backLeftEncoder", backLeftMotor.getEncPosition());
-		SmartDashboard.putNumber("backRightEncoder", backRightMotor.getEncPosition());
-		SmartDashboard.putNumber("frontLeftMotorSpeed", -frontLeftMotor.getSpeed());
-		SmartDashboard.putNumber("frontRightMotorSpeed", frontRightMotor.getSpeed());
-		SmartDashboard.putNumber("backLeftMotorSpeed", -backLeftMotor.getSpeed());
-		SmartDashboard.putNumber("backRightMotorSpeed", backRightMotor.getSpeed());
-		SmartDashboard.putNumber("frontLeftMotorCurent", frontRightMotor.getOutputCurrent());
-		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
-		SmartDashboard.putNumber("backLeftMotorCurent", backRightMotor.getOutputCurrent());
-		SmartDashboard.putNumber("backRightMotorCurent", backLeftMotor.getOutputCurrent());
+
+		SmartDashboard.putNumber("Drive Encoder F L", frontLeftMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder F R", frontRightMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder B L", backLeftMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder B R", backRightMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Speed F L", -frontLeftMotor.getSpeed());
+		SmartDashboard.putNumber("Drive Speed F R", frontRightMotor.getSpeed());
+		SmartDashboard.putNumber("Drive Speed B L", -backLeftMotor.getSpeed());
+		SmartDashboard.putNumber("Drive Speed B R", backRightMotor.getSpeed());
+//		SmartDashboard.putNumber("frontLeftMotorCurent", frontRightMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("backLeftMotorCurent", backRightMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("backRightMotorCurent", backLeftMotor.getOutputCurrent());
 		SmartDashboard.putNumber("IMU Pich", imu.getPitch());
 		SmartDashboard.putNumber("IMU Roll", imu.getRoll());
 		

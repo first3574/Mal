@@ -6,6 +6,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForTime;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.DownerUpperWhenToteIsInRobot;
+import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
 import org.usfirst.frc.team3574.robot.commands.totelifter.WaitUntilSwitchClicker;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
@@ -146,6 +147,11 @@ public class OI {
     	JoystickButton buttonStart2 = new JoystickButton(stick2, 8);		
 //    	buttonStart2.whenPressed(new Calibrate());
     	buttonStart2.whenPressed(new CalibrateAndGoToStart());
+    	
+    	JoystickButton leftJoyButton = new JoystickButton(stick2, 9);
+    	leftJoyButton.whenPressed(new StackRecyclingContainerOpenArms(true));
+    	JoystickButton rightJoyButton = new JoystickButton(stick2, 10);
+    	rightJoyButton.whenPressed(new StackRecyclingContainerOpenArms(false));
     	
     	TrigerButton rightTrig = new TrigerButton(stick2, 3);
     	rightTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET)));

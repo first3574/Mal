@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ToteAndRecycleLifterUpper extends Subsystem {
 	CANTalon elevatorMotor;
-	Solenoid leftSolenoid;
-	Solenoid rightSolenoid;
+	Solenoid recycleSolenoid;
 	
 	double bottomLimitSwitchPosition = 1000;
 	public boolean isGoingDown;
@@ -50,8 +49,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 		
 		SmartDashboard.putData(this);
 		
-    	leftSolenoid = new Solenoid(0);
-    	rightSolenoid = new Solenoid(1);
+    	recycleSolenoid = new Solenoid(0);
 		
 	}
 	
@@ -73,27 +71,20 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void setSetpointOffset(double offset) {
-		int currentPos = elevatorMotor.getAnalogInRaw();
-		int newSetPoint = (int) (bottomLimitSwitchPosition + offset);
+		double currentPos = elevatorMotor.getAnalogInPosition();
+		double newSetPoint = (bottomLimitSwitchPosition + offset);
 		
 		isGoingDown = currentPos  < newSetPoint;
-				
-		if (currentPos  < newSetPoint) {
-			isGoingDown = true;
-		}
-		
 		SmartDashboard.putBoolean("Is Going Down", isGoingDown);
 		
 		elevatorMotor.set(newSetPoint);
 	}
 	
 	public void openRecycle() {
-    	leftSolenoid.set(true);
-    	rightSolenoid.set(true);
+    	recycleSolenoid.set(true);
     }
     public void closeRecycle() {
-    	leftSolenoid.set(false);
-    	rightSolenoid.set(false);
+    	recycleSolenoid.set(false);
     }
     
     // Put methods for controlling this subsystem
@@ -119,35 +110,33 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	} else if (diffOfPid < -12.5) {
     		diffOfPid = -12.5;
     	}
-    	SmartDashboard.putNumber("Diff of Elavator Set Point and Actual Point", diffOfPid);
-		SmartDashboard.putNumber("Elavator Motor Current", elevatorMotor.getOutputCurrent());
-    	SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
+
+    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
+		SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
     	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
-    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
-    	SmartDashboard.putBoolean("Bottom Elavator Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
-    	SmartDashboard.putBoolean("Top Elavator Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
-    	SmartDashboard.putNumber("bus Volt", elevatorMotor.getBusVoltage());
+//    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
+    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
+    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
     	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
-		SmartDashboard.putNumber("Elevator Motor Current", elevatorMotor.getOutputCurrent());
-    	SmartDashboard.putNumber("Elevator Motor Volt", elevatorMotor.getOutputVoltage());
-    	SmartDashboard.putBoolean("LeftSolenoidState", leftSolenoid.get());
-    	SmartDashboard.putBoolean("RightSolenoidState", rightSolenoid.get());
+//		SmartDashboard.putNumber("Elevator Motor Current", elevatorMotor.getOutputCurrent());
+//    	SmartDashboard.putNumber("Elevator Motor Volt", elevatorMotor.getOutputVoltage());
+    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
     	
-    	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
-    		double pValue = SmartDashboard.getNumber("P");
-    		if (isGoingDown == true) {
-    			//pValue *= .50;
-    			//elevatorMotor.setCloseLoopRampRate(.01);
-    		}
-    		elevatorMotor.setP(pValue);
-    		
-    	}
-    	if (SmartDashboard.getNumber("I") != elevatorMotor.getI()) {
-    		elevatorMotor.setI(SmartDashboard.getNumber("I"));
-    	}
-    	if (SmartDashboard.getNumber("D") != elevatorMotor.getD()) {
-    		elevatorMotor.setD(SmartDashboard.getNumber("D"));
-    	}
+//    	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
+//    		double pValue = SmartDashboard.getNumber("P");
+//    		if (isGoingDown == true) {
+//    			//pValue *= .50;
+//    			//elevatorMotor.setCloseLoopRampRate(.01);
+//    		}
+//    		elevatorMotor.setP(pValue);
+//    		
+//    	}
+//    	if (SmartDashboard.getNumber("I") != elevatorMotor.getI()) {
+//    		elevatorMotor.setI(SmartDashboard.getNumber("I"));
+//    	}
+//    	if (SmartDashboard.getNumber("D") != elevatorMotor.getD()) {
+//    		elevatorMotor.setD(SmartDashboard.getNumber("D"));
+//    	}
     }
 }
 
