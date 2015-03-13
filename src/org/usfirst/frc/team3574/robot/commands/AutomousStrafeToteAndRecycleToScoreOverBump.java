@@ -24,7 +24,7 @@ public class AutomousStrafeToteAndRecycleToScoreOverBump extends CommandGroup {
     	addSequential(new DriveWithDistance(-0.5, 0, 0, 640));
     	addSequential(new DriveWithDistance(0, .5, 0, 2100));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
-    	addSequential(new DriveWithDistance(.5, -.2, 0, 500));
+    	addSequential(new DriveWithDistance(.5, 0, 0, 500));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
