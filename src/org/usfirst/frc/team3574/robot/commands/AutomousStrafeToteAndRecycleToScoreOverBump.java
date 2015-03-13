@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutomousStrafeToteToScoreOverBump extends CommandGroup {
+public class AutomousStrafeToteAndRecycleToScoreOverBump extends CommandGroup {
     
-    public  AutomousStrafeToteToScoreOverBump() {
+    public  AutomousStrafeToteAndRecycleToScoreOverBump() {
     	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw(270.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));

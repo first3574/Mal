@@ -4,8 +4,9 @@ package org.usfirst.frc.team3574.robot;
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
 import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousGoSpin;
+import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteAndRecycleToScore;
+import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteAndRecycleToScoreOverBump;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteToScore;
-import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteToScoreOverBump;
 import org.usfirst.frc.team3574.robot.commands.AutomousVision;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.DriveTrain;
@@ -56,8 +57,9 @@ public class Robot extends IterativeRobot {
 		autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
 		autoChooser.addObject("vision", new AutomousVision());
 		autoChooser.addObject("ShovelTotes", new AutomousPushToteToScore());
-		autoChooser.addObject("Grab Recycle and Tote", new AutomousStrafeToteToScore());
-		autoChooser.addObject("Grab Recycle and Tote over bump", new AutomousStrafeToteToScoreOverBump());
+		autoChooser.addObject("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
+		autoChooser.addObject("Grab Recycle and Tote", new AutomousStrafeToteAndRecycleToScore());
+		autoChooser.addObject("Grab Recycle and Tote; Over Bump", new AutomousStrafeToteAndRecycleToScoreOverBump());
 		
         // instantiate the command used for the autonomous period
 		autonomousCommand = new AutomousPickUpTotels();
