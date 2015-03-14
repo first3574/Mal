@@ -19,7 +19,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	
 
 	// Production Robot start carry load contact
-	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -7;
+	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -3;
 	public static final double CARRY_LEVEL_OFFSET = -172;
 	public static final double STACK_LEVEL_OFFSET = -495;
 
