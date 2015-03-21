@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands;
 
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveFastSlowDown;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.NoRotateDriveByCameraRightOrLeft;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
@@ -23,15 +24,17 @@ public class AutomousPickUpTotels extends CommandGroup {
     	addSequential(new DriveWithDistance(0, -1.0, 0, 1000));// 900
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
 //    	addSequential(new DriveWithDistance(0.5, 0.75, 0, 1824));
-    	addSequential(new DriveWithDistance(0, 1.0, 0, 1000));
-    	addSequential(new DriveWithDistance(0.5, 0, 0, 1525));
+//    	addSequential(new DriveWithDistance(0, 1.0, 0, 1000));
+//    	addSequential(new DriveWithDistance(0.5, 0, 0, 1525));
 //    	addSequential(new NoRotateDriveByCameraRightOrLeft(0.5));
+    	addSequential(new DriveFastSlowDown());
     	addSequential(new DriveWithDistance(0, -1.0, 0, 1000));
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
-    	addSequential(new DriveWithDistance(0, 1.0, 0, 1000));
-    	addSequential(new DriveWithDistance(0.5, 0, 0, 1525));
+//    	addSequential(new DriveWithDistance(0, 1.0, 0, 1000));
+//    	addSequential(new DriveWithDistance(0.5, 0, 0, 1525));
 //    	addSequential(new NoRotateDriveByCameraRightOrLeft(0.5));
+    	addSequential(new DriveFastSlowDown());
     	addSequential(new DriveWithDistance(0, -1.0, 0, 1000));
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.CARRY_LEVEL_OFFSET));

@@ -46,10 +46,11 @@ public class DriveTrain extends Subsystem {
 		frontRightMotor = new CANTalon(3);
 		accel = new BuiltInAccelerometer();
 
-	    SmartDashboard.putNumber("Drive Train P", 1.0);
-	    SmartDashboard.putNumber("Drive Train I", 0.0);
-	    SmartDashboard.putNumber("Drive Train D", 0.0);
-	    SmartDashboard.putNumber("Drive Train F", 3.95);
+		//this is for tuning
+//	    SmartDashboard.putNumber("Drive Train P", 1.0);
+//	    SmartDashboard.putNumber("Drive Train I", 0.0);
+//	    SmartDashboard.putNumber("Drive Train D", 0.0);
+//	    SmartDashboard.putNumber("Drive Train F", 3.95);
 	    
 		System.out.println("instantiated");
 		
@@ -58,6 +59,7 @@ public class DriveTrain extends Subsystem {
 		talonInit(backRightMotor);
 		talonInit(frontRightMotor);
 		
+		// keeps the camera gets from crashing if it's not working
 		net = NetworkTable.getTable("Vision");
 		net.putNumber("Distance From Center", 0);
     	net.putNumber("Position X", -1);
@@ -95,7 +97,7 @@ public class DriveTrain extends Subsystem {
 		mecanumDrive_Cartesian(x, y, z, this.getYaw(), throttle);
     }
     
-    public void driveRobotOrientated(double x, double y, double z, double throttle) {
+    public void driveRobotOriented(double x, double y, double z, double throttle) {
 		mecanumDrive_Cartesian(x, y, z, 270.0, throttle);
     }
     
@@ -107,7 +109,7 @@ public class DriveTrain extends Subsystem {
         //theThing.setPID(p, i, d, f, izone, closeLoopRampRate, profile);
 	}
 	
-	private double getYaw() {
+	public double getYaw() {
 		if (imu != null) {
 			return (imu.getYaw() + offset) % 360;  // imu without mods goes -180 to 180
 		} else {
@@ -170,6 +172,8 @@ public class DriveTrain extends Subsystem {
 		// Compensate for gyro angle.
 		double rotated[] = rotateVector(xIn, yIn, gyroAngle);
 		xIn = rotated[0];
+		
+		//throttle is used to make up for the faster speeds when the robot moves laterally 
 		yIn = rotated[1] * throttle;
 
 		double wheelSpeeds[] = new double[4];
@@ -179,7 +183,8 @@ public class DriveTrain extends Subsystem {
 		wheelSpeeds[3] = xIn + yIn - rotation;
 
 		normalize(wheelSpeeds);
-//		
+
+		// this is for tuning
 //		if (SmartDashboard.getNumber("Drive Train P") != frontLeftMotor.getP()) {
 //			frontLeftMotor.setP(SmartDashboard.getNumber("Drive Train P"));
 //			frontRightMotor.setP(SmartDashboard.getNumber("Drive Train P"));
@@ -238,6 +243,10 @@ public class DriveTrain extends Subsystem {
 		return backRightMotor.getEncPosition();
 	}
 	
+	public double getMinMotorVolt() {
+		return Math.min(Math.min(backLeftMotor.getOutputVoltage(), backRightMotor.getOutputVoltage()), Math.min(frontLeftMotor.getOutputVoltage(), frontRightMotor.getOutputVoltage()));
+	}
+	
 	public void resetEncoderValues() {
 		frontLeftMotor.setPosition(0.0);
 		frontRightMotor.setPosition(0.0);
@@ -246,33 +255,32 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void Log() {
-		if(imu != null){
-			SmartDashboard.putNumber("Orentation", imu.getYaw());
-		}
+//		if(imu != null){
+//			SmartDashboard.putNumber("GetYaw", this.getYaw());
+//		}
 
-		SmartDashboard.putNumber("Drive Encoder F L", frontLeftMotor.getEncPosition());
-		SmartDashboard.putNumber("Drive Encoder F R", frontRightMotor.getEncPosition());
-		SmartDashboard.putNumber("Drive Encoder B L", backLeftMotor.getEncPosition());
-		SmartDashboard.putNumber("Drive Encoder B R", backRightMotor.getEncPosition());
-		SmartDashboard.putNumber("Drive Speed F L", -frontLeftMotor.getSpeed());
-		SmartDashboard.putNumber("Drive Speed F R", frontRightMotor.getSpeed());
-		SmartDashboard.putNumber("Drive Speed B L", -backLeftMotor.getSpeed());
-		SmartDashboard.putNumber("Drive Speed B R", backRightMotor.getSpeed());
-//		SmartDashboard.putNumber("frontLeftMotorCurent", frontRightMotor.getOutputCurrent());
-//		SmartDashboard.putNumber("frontRightMotorCurent", frontLeftMotor.getOutputCurrent());
-//		SmartDashboard.putNumber("backLeftMotorCurent", backRightMotor.getOutputCurrent());
-//		SmartDashboard.putNumber("backRightMotorCurent", backLeftMotor.getOutputCurrent());
-		SmartDashboard.putNumber("IMU Pich", imu.getPitch());
-		SmartDashboard.putNumber("IMU Roll", imu.getRoll());
+//		SmartDashboard.putNumber("Drive Encoder F L", frontLeftMotor.getEncPosition());
+//		SmartDashboard.putNumber("Drive Encoder F R", frontRightMotor.getEncPosition());
+//		SmartDashboard.putNumber("Drive Encoder B L", backLeftMotor.getEncPosition());
+//		SmartDashboard.putNumber("Drive Encoder B R", backRightMotor.getEncPosition());
+//		SmartDashboard.putNumber("Drive Speed F L", -frontLeftMotor.getSpeed());
+//		SmartDashboard.putNumber("Drive Speed F R", frontRightMotor.getSpeed());
+//		SmartDashboard.putNumber("Drive Speed B L", -backLeftMotor.getSpeed());
+//		SmartDashboard.putNumber("Drive Speed B R", backRightMotor.getSpeed());
+//		SmartDashboard.putNumber("frontLeftMotorCurrent", frontRightMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("frontRightMotorCurrent", frontLeftMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("backLeftMotorCurrent", backRightMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("backRightMotorCurrent", backLeftMotor.getOutputCurrent());
+//		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+//		SmartDashboard.putNumber("IMU Roll", imu.getRoll());
 		
-		
-		disFromCen = net.getNumber("Distance From Center");
-    	posX = net.getNumber("Position X");
-    	posY = net.getNumber("Position Y");
-    	framecount = net.getNumber("Frame Count");
-    	SmartDashboard.putBoolean("disFromCen < -5", disFromCen < -5);
-    	SmartDashboard.putBoolean("disFromCen > 5", disFromCen > 5);
-    	SmartDashboard.putNumber("disFromCen", disFromCen);
+//		disFromCen = net.getNumber("Distance From Center");
+//    	posX = net.getNumber("Position X");
+//    	posY = net.getNumber("Position Y");
+//    	framecount = net.getNumber("Frame Count");
+//    	SmartDashboard.putBoolean("disFromCen < -5", disFromCen < -5);
+//    	SmartDashboard.putBoolean("disFromCen > 5", disFromCen > 5);
+//    	SmartDashboard.putNumber("disFromCen", disFromCen);
 	}
 	
 }

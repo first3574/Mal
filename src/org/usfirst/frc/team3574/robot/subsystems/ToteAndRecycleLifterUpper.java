@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ToteAndRecycleLifterUpper extends Subsystem {
 	CANTalon elevatorMotor;
 	Solenoid recycleSolenoid;
+	Solenoid tabSolenoid;
+	DigitalInput openSwitchForTabSystem = new DigitalInput(1);
+	DigitalInput closeSwithForTabSystem = new DigitalInput(2);
 	
 	double bottomLimitSwitchPosition = 1000;
 	public boolean isGoingDown;
@@ -50,6 +53,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 		SmartDashboard.putData(this);
 		
     	recycleSolenoid = new Solenoid(0);
+    	tabSolenoid = new Solenoid(1);
 		
 	}
 	
@@ -62,7 +66,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void setElevatorPosAtCurent() {
-		elevatorMotor.set(elevatorMotor.getAnalogInRaw());
+		elevatorMotor.set(elevatorMotor.get());
 	}
 	
 	public void UpperOrDowner(double amountToMove) {
@@ -86,6 +90,12 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     public void closeRecycle() {
     	recycleSolenoid.set(false);
     }
+    public void tabSolenoidHoldTote() {
+    	tabSolenoid.set(false);
+    }
+    public void tabSolenoidFreeTote() {
+    	tabSolenoid.set(true);
+    }
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -94,6 +104,13 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    public boolean isOpenSwitchForTabSystemTripped() {
+    	return openSwitchForTabSystem.get();
+    }
+    
+    public boolean isCloseSwitchForTabSystemTripped() {
+		return closeSwithForTabSystem.get();
+	}
     
     public boolean isBottomLimitTriped() {
     	return ! elevatorMotor.isFwdLimitSwitchClosed();
@@ -110,17 +127,22 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	} else if (diffOfPid < -12.5) {
     		diffOfPid = -12.5;
     	}
-
-    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
-		SmartDashboard.putNumber("Elavator Petentiometer Value", elevatorMotor.getAnalogInRaw());
-    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
+    	
+//    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
+//    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
 //    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
-    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
-    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
-    	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
+//    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
+//    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
+//    	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
 //		SmartDashboard.putNumber("Elevator Motor Current", elevatorMotor.getOutputCurrent());
 //    	SmartDashboard.putNumber("Elevator Motor Volt", elevatorMotor.getOutputVoltage());
-    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
+//    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
+
+//		System.out.println("Getpos " + elevatorMotor.get());
+
+    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
+    		System.out.println("clicked");
+    	} 
     	
 //    	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
 //    		double pValue = SmartDashboard.getNumber("P");

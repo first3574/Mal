@@ -14,6 +14,7 @@ import org.usfirst.frc.team3574.robot.subsystems.StepGrabber;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -33,11 +34,14 @@ public class Robot extends IterativeRobot {
 
 	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-	public static StepGrabber stepgrabber;
+//	public static StepGrabber stepgrabber;
 	public static DriveTrain drivetrain;
 	public static ToteAndRecycleLifterUpper toteandrecyclelifterupper;
 	public static Collector collector;
 	SendableChooser autoChooser;
+
+	Timer time;
+    double timerLast;
 	   
     Command autonomousCommand;
 
@@ -46,15 +50,21 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	time = new Timer();
+    	
+    	time.reset();
+    	time.start();
+    	timerLast = time.get();
+        
     	toteandrecyclelifterupper = new ToteAndRecycleLifterUpper();
 		drivetrain = new DriveTrain();
 		collector = new Collector();
-		stepgrabber = new StepGrabber(); 
+//		stepgrabber = new StepGrabber(); 
 		oi = new OI();
 
 
 		autoChooser = new SendableChooser();
-		// autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
+		 autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
 		// autoChooser.addObject("vision", new AutomousVision());
 		autoChooser.addObject("ShoveTotes", new AutomousPushToteToScore());
 		autoChooser.addDefault("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
@@ -73,9 +83,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		
-		drivetrain.Log();
-		toteandrecyclelifterupper.Log();
-		stepgrabber.Log();
+        this.Log();
 	}
 
     public void autonomousInit() {
@@ -93,9 +101,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         
-        drivetrain.Log();
-		toteandrecyclelifterupper.Log();
-		stepgrabber.Log();
+        this.Log();
     }
 
     public void teleopInit() {
@@ -121,9 +127,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        drivetrain.Log();
-        toteandrecyclelifterupper.Log();
-        stepgrabber.Log();
+        this.Log();
     }
     
     /**
@@ -131,5 +135,15 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+
+    public void Log() {
+        drivetrain.Log();
+//        toteandrecyclelifterupper.Log();
+//        stepgrabber.Log();
+        System.out.print(" Robot Time " + time.get());
+//		SmartDashboard.putNumber("Robot Time", time.get());
+		SmartDashboard.putNumber("Robot Loop Time", time.get() - timerLast);
+		timerLast = time.get();
     }
 }

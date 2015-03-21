@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MoveElevatorTo extends Command {
 	
 	private double sP = 0.0;
-	int count;
+	int state;
 	boolean isDone;
+	double futureStopTime;
 
     public MoveElevatorTo(double setPoint) {
         // Use requires() here to declare subsystem dependencies
@@ -24,7 +25,7 @@ public class MoveElevatorTo extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	count = 0;
+    	state = 0;
     	isDone = false;
     	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
 
@@ -49,6 +50,32 @@ public class MoveElevatorTo extends Command {
     	if (Robot.toteandrecyclelifterupper.isGoingDown) {
     		Robot.toteandrecyclelifterupper.openRecycle();
     	}
+    	switch (state) {
+		case 0:
+			if (!Robot.toteandrecyclelifterupper.isOpenSwitchForTabSystemTripped() && Robot.toteandrecyclelifterupper.isGoingDown) {
+	    		Robot.toteandrecyclelifterupper.setElevatorPosAtCurent();
+	    		Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
+	    		futureStopTime = super.timeSinceInitialized() + .25;
+	    		state++;
+			} else if(!Robot.toteandrecyclelifterupper.isCloseSwitchForTabSystemTripped() && !Robot.toteandrecyclelifterupper.isGoingDown) {
+				Robot.toteandrecyclelifterupper.setElevatorPosAtCurent();
+	    		Robot.toteandrecyclelifterupper.tabSolenoidHoldTote();
+	    		futureStopTime = super.timeSinceInitialized() + .25;
+	    		state++;
+			}
+			break;
+			
+		case 1:
+			if (futureStopTime <= super.timeSinceInitialized()) {
+	    		Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
+	    		state++;
+			}
+			break;
+
+		default:
+			//ToDo: Make Robot Explode >:)
+			break;
+		}
     }
 
     // Make this return true when this Command no longer needs to run execute()

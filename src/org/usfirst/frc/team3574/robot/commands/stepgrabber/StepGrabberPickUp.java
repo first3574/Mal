@@ -31,12 +31,12 @@ public class StepGrabberPickUp extends Command {
 	protected void execute() {
 		switch (state) {
 		case 0:
-			Robot.stepgrabber.pusherThingOut();
+//			Robot.stepgrabber.pusherThingOut();
 			state++;
 			break;
 		case 1:
 			if (time.get() > .1){
-				Robot.stepgrabber.lifterThingUp();
+//				Robot.stepgrabber.lifterThingUp();
 				time.reset();
 				state++;
 			}
