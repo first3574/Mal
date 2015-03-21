@@ -259,10 +259,10 @@ public class DriveTrain extends Subsystem {
 //			SmartDashboard.putNumber("GetYaw", this.getYaw());
 //		}
 
-//		SmartDashboard.putNumber("Drive Encoder F L", frontLeftMotor.getEncPosition());
-//		SmartDashboard.putNumber("Drive Encoder F R", frontRightMotor.getEncPosition());
-//		SmartDashboard.putNumber("Drive Encoder B L", backLeftMotor.getEncPosition());
-//		SmartDashboard.putNumber("Drive Encoder B R", backRightMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder F L", frontLeftMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder F R", frontRightMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder B L", backLeftMotor.getEncPosition());
+		SmartDashboard.putNumber("Drive Encoder B R", backRightMotor.getEncPosition());
 //		SmartDashboard.putNumber("Drive Speed F L", -frontLeftMotor.getSpeed());
 //		SmartDashboard.putNumber("Drive Speed F R", frontRightMotor.getSpeed());
 //		SmartDashboard.putNumber("Drive Speed B L", -backLeftMotor.getSpeed());

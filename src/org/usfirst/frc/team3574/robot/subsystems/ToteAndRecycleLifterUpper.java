@@ -127,22 +127,22 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	} else if (diffOfPid < -12.5) {
     		diffOfPid = -12.5;
     	}
-    	
 //    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
 //    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
 //    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
 //    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
 //    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
-//    	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
+    	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
 //		SmartDashboard.putNumber("Elevator Motor Current", elevatorMotor.getOutputCurrent());
 //    	SmartDashboard.putNumber("Elevator Motor Volt", elevatorMotor.getOutputVoltage());
 //    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
+    	SmartDashboard.putNumber("Elevator Pos", elevatorMotor.get());
 
 //		System.out.println("Getpos " + elevatorMotor.get());
 
-    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
-    		System.out.println("clicked");
-    	} 
+//    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
+//    		System.out.println("clicked");
+//    	} 
     	
 //    	if (SmartDashboard.getNumber("P") != elevatorMotor.getP()) {
 //    		double pValue = SmartDashboard.getNumber("P");

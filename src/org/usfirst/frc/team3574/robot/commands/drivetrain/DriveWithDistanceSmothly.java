@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class DriveWithDistance extends Command {
+public class DriveWithDistanceSmothly extends Command {
 	
 	private double x;
 	private double y;
@@ -35,8 +35,9 @@ public class DriveWithDistance extends Command {
 	boolean fREncBroken = false;
 	boolean bLEncBroken = false;
 	boolean bREncBroken = false;
+	boolean isDone = false;
 	
-    public DriveWithDistance(double xSpeed, double ySpeed, double rotate, int distance) {
+    public DriveWithDistanceSmothly(double xSpeed, double ySpeed, double rotate, int distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);at
     	requires(Robot.drivetrain);
@@ -61,6 +62,7 @@ public class DriveWithDistance extends Command {
     	iMUStart = Robot.drivetrain.getOrigIMUGetYaw();
     	System.out.println("initialize" + Robot.drivetrain.backRightEncoderValue() + "		" + Robot.drivetrain.frontRightEncoderValue() + "		" + Robot.drivetrain.backLeftEncoderValue() + "	" + Robot.drivetrain.frontLeftEncoderValue());
     	
+    	isDone = false;
     	
 		System.out.println(name + " init");
     	
@@ -116,13 +118,6 @@ public class DriveWithDistance extends Command {
 			selfStraght = iMUDiffrence*.05;
 		}
 		
-    	Robot.drivetrain.driveFieldOrientated(x, y, selfStraght);
-//		System.out.println(name + " exec end");
-    	
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
     	int fLEncV = fLEncBroken ? 9999999 : Math.abs(Robot.drivetrain.frontLeftEncoderValue()-startEncoderValueFrontLeft);
     	int fREncV = fREncBroken ? 9999999 : Math.abs(Robot.drivetrain.frontRightEncoderValue()-startEncoderValueFrontRight);
     	int bLEncV = bLEncBroken ? 9999999 : Math.abs(Robot.drivetrain.backLeftEncoderValue()-startEncoderValueBackLeft);
@@ -132,15 +127,33 @@ public class DriveWithDistance extends Command {
     	SmartDashboard.putNumber("LeftMotorsMin", leftMotorsMin);
     	SmartDashboard.putNumber("RightMotorsMin", rightMotorsMin);
     	
-    	if(Math.min(leftMotorsMin, rightMotorsMin) >= dis) {
+    	int rAndLMin = Math.min(leftMotorsMin, rightMotorsMin);
+    	
+    	if((dis*.95) < rAndLMin) {
+        	Robot.drivetrain.driveFieldOrientated((x*.3), (y*.3), selfStraght);
+        	
+        } else if ((dis*.9) < rAndLMin) {
+        	Robot.drivetrain.driveFieldOrientated((x*.4), (y*.4), selfStraght);
+        	
+        } else if ((dis*.8) > 0) {
+        	Robot.drivetrain.driveFieldOrientated((x*.5), (y*.5), selfStraght);
+        }		
+    	
+    	if(rAndLMin >= dis) {
         	Robot.drivetrain.driveFieldOrientated(0.0, 0.0, 0.0);
 			System.out.println(name + " isFinished");
-			System.out.println("Finished" + Robot.drivetrain.backRightEncoderValue() + "		" + Robot.drivetrain.frontRightEncoderValue() + "		" + Robot.drivetrain.backLeftEncoderValue() + "	" + Robot.drivetrain.frontLeftEncoderValue());
-	    	
-        	return true; 
-        } else {
-        	return false;
+//			System.out.println("Finished" + Robot.drivetrain.backRightEncoderValue() + "		" + Robot.drivetrain.frontRightEncoderValue() + "		" + Robot.drivetrain.backLeftEncoderValue() + "	" + Robot.drivetrain.frontLeftEncoderValue());
+        	isDone = true; 
         }
+    	
+    	Robot.drivetrain.driveFieldOrientated(x, y, selfStraght);
+//		System.out.println(name + " exec end");
+    	
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+    	return isDone;
     	
     }
 

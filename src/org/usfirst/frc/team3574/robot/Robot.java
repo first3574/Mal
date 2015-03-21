@@ -139,7 +139,7 @@ public class Robot extends IterativeRobot {
 
     public void Log() {
         drivetrain.Log();
-//        toteandrecyclelifterupper.Log();
+        toteandrecyclelifterupper.Log();
 //        stepgrabber.Log();
         System.out.print(" Robot Time " + time.get());
 //		SmartDashboard.putNumber("Robot Time", time.get());

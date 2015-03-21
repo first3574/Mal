@@ -28,7 +28,7 @@ public class MoveElevatorTo extends Command {
     	state = 0;
     	isDone = false;
     	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
-
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
