@@ -66,7 +66,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void setElevatorPosAtCurent() {
-		elevatorMotor.set(elevatorMotor.get());
+		elevatorMotor.set(elevatorMotor.getAnalogInRaw());
 	}
 	
 	public void UpperOrDowner(double amountToMove) {
@@ -78,7 +78,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 		double currentPos = elevatorMotor.get();
 		double newSetPoint = (bottomLimitSwitchPosition + offset);
 		
-		isGoingDown = currentPos  < newSetPoint;
+		isGoingDown = currentPos < newSetPoint;
 		SmartDashboard.putBoolean("Is Going Down", isGoingDown);
 		
 		elevatorMotor.set(newSetPoint);
@@ -105,11 +105,11 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     public boolean isOpenSwitchForTabSystemTripped() {
-    	return openSwitchForTabSystem.get();
+    	return !openSwitchForTabSystem.get();
     }
     
     public boolean isCloseSwitchForTabSystemTripped() {
-		return closeSwithForTabSystem.get();
+		return !closeSwithForTabSystem.get();
 	}
     
     public boolean isBottomLimitTriped() {
@@ -129,7 +129,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	}
 //    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
     	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
-//    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
+    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
 //    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
 //    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
     	SmartDashboard.putBoolean("Auto Lift Limit Switch", isToteInRobot());
@@ -138,7 +138,8 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 //    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
     	SmartDashboard.putNumber("Elevator Pos", elevatorMotor.get());
 
-//		System.out.println("Getpos " + elevatorMotor.get());
+		System.out.println("Getpos " + elevatorMotor.get());
+		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
 
 //    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
 //    		System.out.println("clicked");

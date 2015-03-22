@@ -52,12 +52,12 @@ public class MoveElevatorTo extends Command {
     	}
     	switch (state) {
 		case 0:
-			if (!Robot.toteandrecyclelifterupper.isOpenSwitchForTabSystemTripped() && Robot.toteandrecyclelifterupper.isGoingDown) {
+			if (Robot.toteandrecyclelifterupper.isOpenSwitchForTabSystemTripped() && Robot.toteandrecyclelifterupper.isGoingDown) {
 	    		Robot.toteandrecyclelifterupper.setElevatorPosAtCurent();
 	    		Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
 	    		futureStopTime = super.timeSinceInitialized() + .25;
 	    		state++;
-			} else if(!Robot.toteandrecyclelifterupper.isCloseSwitchForTabSystemTripped() && !Robot.toteandrecyclelifterupper.isGoingDown) {
+			} else if(Robot.toteandrecyclelifterupper.isCloseSwitchForTabSystemTripped() && !Robot.toteandrecyclelifterupper.isGoingDown) {
 				Robot.toteandrecyclelifterupper.setElevatorPosAtCurent();
 	    		Robot.toteandrecyclelifterupper.tabSolenoidHoldTote();
 	    		futureStopTime = super.timeSinceInitialized() + .25;
