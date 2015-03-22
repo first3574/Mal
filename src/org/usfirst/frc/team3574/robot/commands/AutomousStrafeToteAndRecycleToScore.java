@@ -22,7 +22,7 @@ public class AutomousStrafeToteAndRecycleToScore extends CommandGroup {
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN), 3);
     	addSequential(new DriveWithDistance(-0.5, 0, 0, 640));
-    	addSequential(new DriveWithDistance(0, 1, 0, 2000));
+    	addSequential(new DriveWithDistance(0, 0.75, 0, 2000));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
     	addSequential(new DriveWithDistance(.5, 0, 0, 500));
     	

@@ -16,7 +16,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	DigitalInput openSwitchForTabSystem = new DigitalInput(1);
 	DigitalInput closeSwithForTabSystem = new DigitalInput(2);
 	
-	double bottomLimitSwitchPosition = 1000;
+	double bottomLimitSwitchPosition = 0;
 	public boolean isGoingDown;
 	DigitalInput switchForCrateInRobot = new DigitalInput(0);
 	
@@ -62,7 +62,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void calibrateBottomToCurrentPos() {
-		bottomLimitSwitchPosition = elevatorMotor.getAnalogInRaw();
+		bottomLimitSwitchPosition = elevatorMotor.get();
 	}
 	
 	public void setElevatorPosAtCurent() {
@@ -75,7 +75,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void setSetpointOffset(double offset) {
-		double currentPos = elevatorMotor.getAnalogInPosition();
+		double currentPos = elevatorMotor.get();
 		double newSetPoint = (bottomLimitSwitchPosition + offset);
 		
 		isGoingDown = currentPos  < newSetPoint;
@@ -117,18 +117,18 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     }
     
     public double getElevatorOffest() {
-    	return (this.bottomLimitSwitchPosition - elevatorMotor.getAnalogInRaw());
+    	return (this.bottomLimitSwitchPosition - elevatorMotor.get());
     }
     
     public void Log() {
-    	double diffOfPid = (elevatorMotor.getSetpoint()-elevatorMotor.getAnalogInRaw());
+    	double diffOfPid = (elevatorMotor.getSetpoint()-elevatorMotor.get());
     	if (diffOfPid > 12.5) {
     		diffOfPid = 12.5;
     	} else if (diffOfPid < -12.5) {
     		diffOfPid = -12.5;
     	}
 //    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
-//    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
+    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
 //    	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
 //    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
 //    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());

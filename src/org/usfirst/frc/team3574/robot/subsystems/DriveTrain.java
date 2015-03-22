@@ -274,13 +274,13 @@ public class DriveTrain extends Subsystem {
 //		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 //		SmartDashboard.putNumber("IMU Roll", imu.getRoll());
 		
-//		disFromCen = net.getNumber("Distance From Center");
-//    	posX = net.getNumber("Position X");
-//    	posY = net.getNumber("Position Y");
-//    	framecount = net.getNumber("Frame Count");
-//    	SmartDashboard.putBoolean("disFromCen < -5", disFromCen < -5);
-//    	SmartDashboard.putBoolean("disFromCen > 5", disFromCen > 5);
-//    	SmartDashboard.putNumber("disFromCen", disFromCen);
+		disFromCen = net.getNumber("Distance From Center");
+    	posX = net.getNumber("Position X");
+    	posY = net.getNumber("Position Y");
+    	framecount = net.getNumber("Frame Count");
+    	SmartDashboard.putBoolean("disFromCen < -5", disFromCen < -5);
+    	SmartDashboard.putBoolean("disFromCen > 5", disFromCen > 5);
+    	SmartDashboard.putNumber("disFromCen", disFromCen);
 	}
 	
 }

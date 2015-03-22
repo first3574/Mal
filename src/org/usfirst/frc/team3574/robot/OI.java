@@ -6,6 +6,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRotate;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveFastSlowDown;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForTime;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistanceSmothly;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.MoveLeftOrRight;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.DownerUpperWhenToteIsInRobot;
@@ -90,8 +91,9 @@ public class OI {
 //    	JoystickButton buttonCircle = new JoystickButton(stick, 11);					//PS3 = 3
 //    	buttonCircle.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	
+//    	Magic Programmer Button
        	JoystickButton button7 = new JoystickButton(stick, 7);				
-       	button7.whenPressed(new AutomousPickUpTotels());
+       	button7.whenPressed(new DriveWithDistanceSmothly(.9, .45, 0.0, 2000));
 //    	
 //    	JoystickButton button5 = new JoystickButton(stick, 5);		
 //    	button5.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_IN));

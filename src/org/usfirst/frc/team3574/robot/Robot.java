@@ -5,7 +5,6 @@ import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
 import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousGoSpin;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteAndRecycleToScore;
-import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteAndRecycleToScoreOverBump;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousVision;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
@@ -64,7 +63,7 @@ public class Robot extends IterativeRobot {
 
 
 		autoChooser = new SendableChooser();
-		 autoChooser.addDefault("Default forward back left, etc...", new AutomousPickUpTotels());
+		 autoChooser.addObject("Three Totes.", new AutomousPickUpTotels());
 		// autoChooser.addObject("vision", new AutomousVision());
 		autoChooser.addObject("ShoveTotes", new AutomousPushToteToScore());
 		autoChooser.addDefault("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
@@ -87,8 +86,8 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-//        // schedule the autonomous command (example)
-//    	autonomousCommand = new AutomousPickUpTotels();
+//      schedule the autonomous command (example)
+//    	  autonomousCommand = new AutomousPickUpTotels();
 //        if (autonomousCommand != null) autonomousCommand.start();
         toteandrecyclelifterupper.setElevatorPosAtCurent();
     	autonomousCommand = (Command) autoChooser.getSelected();
@@ -109,7 +108,9 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomousCommand != null) {
+        	autonomousCommand.cancel();
+        }
         toteandrecyclelifterupper.setElevatorPosAtCurent();
     }
 
@@ -140,10 +141,10 @@ public class Robot extends IterativeRobot {
     public void Log() {
         drivetrain.Log();
         toteandrecyclelifterupper.Log();
-//        stepgrabber.Log();
-        System.out.print(" Robot Time " + time.get());
+//      stepgrabber.Log();
+//      System.out.print(" Robot Time " + time.get());
 //		SmartDashboard.putNumber("Robot Time", time.get());
-		SmartDashboard.putNumber("Robot Loop Time", time.get() - timerLast);
-		timerLast = time.get();
+//		SmartDashboard.putNumber("Robot Loop Time", time.get() - timerLast);
+//		timerLast = time.get();
     }
 }

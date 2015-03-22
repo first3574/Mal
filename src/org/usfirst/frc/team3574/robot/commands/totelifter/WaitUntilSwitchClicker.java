@@ -1,8 +1,10 @@
 package org.usfirst.frc.team3574.robot.commands.totelifter;
 
 import org.usfirst.frc.team3574.robot.Robot;
+import org.usfirst.frc.team3574.robot.commands.NoDrive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *	
@@ -26,7 +28,11 @@ public class WaitUntilSwitchClicker extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.toteandrecyclelifterupper.isToteInRobot();
+		if (Robot.toteandrecyclelifterupper.isToteInRobot()) {
+			Scheduler.getInstance().add(new NoDrive());
+			return true;
+		}
+		return false;
 	}
 
 	// Called once after isFinished returns true

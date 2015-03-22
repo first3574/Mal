@@ -1,5 +1,10 @@
 package org.usfirst.frc.team3574.robot.commands.totelifter;
 
+import org.usfirst.frc.team3574.robot.commands.CollectWithJoy;
+import org.usfirst.frc.team3574.robot.commands.NoDrive;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,7 +16,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
     
 public class DownerUpperWhenToteIsInRobot extends CommandGroup {
     public  DownerUpperWhenToteIsInRobot(Command targetHeightCommand) {
+//    	addParallel(new DriveWithJoy());
     	addSequential(new WaitUntilSwitchClicker());
+//    	addParallel(new NoDrive(), 1.5);
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
     	addSequential(targetHeightCommand);
         // Add Commands here:

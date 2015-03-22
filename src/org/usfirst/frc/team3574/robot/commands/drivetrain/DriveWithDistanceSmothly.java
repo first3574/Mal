@@ -59,6 +59,11 @@ public class DriveWithDistanceSmothly extends Command {
     	startEncoderValueBackLeft = Robot.drivetrain.backLeftEncoderValue();
     	startEncoderValueFrontLeft = Robot.drivetrain.frontLeftEncoderValue();
     	
+    	fLEncBroken = false;
+    	fREncBroken = false;
+    	bLEncBroken = false;
+    	bREncBroken = false;
+    	
     	iMUStart = Robot.drivetrain.getOrigIMUGetYaw();
     	System.out.println("initialize" + Robot.drivetrain.backRightEncoderValue() + "		" + Robot.drivetrain.frontRightEncoderValue() + "		" + Robot.drivetrain.backLeftEncoderValue() + "	" + Robot.drivetrain.frontLeftEncoderValue());
     	
