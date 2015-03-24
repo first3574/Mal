@@ -18,6 +18,7 @@ public class MoveElevatorSlowerTo extends Command {
 	boolean isMovingUp;
 	double futureStopTime;
 	boolean speedCommandSent = false;
+	boolean doneRamping = false;
 	double startPoint;
 
     public MoveElevatorSlowerTo(double setPoint) {
@@ -36,9 +37,9 @@ public class MoveElevatorSlowerTo extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	state = 0;
-//    	state1 = 0;
     	isDone = false;
-//    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
+    	speedCommandSent = false;
+    	doneRamping = false;
     	futureStopTime = 0;
     }
 
@@ -46,13 +47,17 @@ public class MoveElevatorSlowerTo extends Command {
     protected void execute() {
     	SmartDashboard.putNumber("Elevator offset from beginning",  Math.abs(Robot.toteandrecyclelifterupper.getElevatorOffest() - startPoint));
     	if(!speedCommandSent) {
+    		Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
     		Robot.toteandrecyclelifterupper.setElevatorMotorSpeed(0.3);
     		speedCommandSent = true;
     		startPoint = Robot.toteandrecyclelifterupper.getElevatorOffest();
     		SmartDashboard.putBoolean("Elevator ramp finished", false);
-    	} else if (30 < Math.abs(Robot.toteandrecyclelifterupper.getElevatorOffest() - startPoint)) {
+    	} else if (super.timeSinceInitialized() > .5 && !doneRamping) {
+    		Robot.toteandrecyclelifterupper.setElevatorMotorSpeed(0.0);
     		Robot.toteandrecyclelifterupper.setElevatorMotorToPIDMode();
     		SmartDashboard.putBoolean("Elevator ramp finished", true);
+    		Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
+    		doneRamping = true;
     		return;
     	}
     	

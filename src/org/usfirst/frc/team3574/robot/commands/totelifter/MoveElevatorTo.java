@@ -29,6 +29,7 @@ public class MoveElevatorTo extends Command {
     	state = 0;
 //    	state1 = 0;
     	isDone = false;
+    	Robot.toteandrecyclelifterupper.setElevatorMotorToPIDMode();
     	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
     	futureStopTime = 0;
     }

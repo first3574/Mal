@@ -25,7 +25,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -5;
 	public static final double CARRY_LEVEL_OFFSET = -172;
 	public static final double STACK_LEVEL_OFFSET = -495;
-	public static final double ENGAGE_TAB_OFFEST = -92;
+	public static final double ENGAGE_TAB_OFFEST = -94;
 	public static final double DISENGAGE_TAB_OFFSET = -445;
 	
 	
@@ -48,6 +48,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	}
 	
 	public void setElevatorMotorToPIDMode() {
+		elevatorMotor = new CANTalon(5);
 		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
 		
 		elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot);
