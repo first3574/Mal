@@ -1,9 +1,12 @@
 
 package org.usfirst.frc.team3574.robot;
 
-import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
+import org.usfirst.frc.team3574.robot.commands.AutomousDoNothing;
+import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleThenDoNothing;
+import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotes;
 import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousGoSpin;
+import org.usfirst.frc.team3574.robot.commands.AutomousStrafeRecycleToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteAndRecycleToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousVision;
@@ -33,118 +36,123 @@ public class Robot extends IterativeRobot {
 
 	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-//	public static StepGrabber stepgrabber;
+	//	public static StepGrabber stepgrabber;
 	public static DriveTrain drivetrain;
 	public static ToteAndRecycleLifterUpper toteandrecyclelifterupper;
 	public static Collector collector;
 	SendableChooser autoChooser;
 
 	Timer time;
-    double timerLast;
-	   
-    Command autonomousCommand;
+	double timerLast;
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    public void robotInit() {
-    	time = new Timer();
-    	
-    	time.reset();
-    	time.start();
-    	timerLast = time.get();
-        
-    	toteandrecyclelifterupper = new ToteAndRecycleLifterUpper();
+	Command autonomousCommand;
+
+	/**
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
+	 */
+	public void robotInit() {
+		time = new Timer();
+
+		time.reset();
+		time.start();
+		timerLast = time.get();
+
+		toteandrecyclelifterupper = new ToteAndRecycleLifterUpper();
 		drivetrain = new DriveTrain();
 		collector = new Collector();
-//		stepgrabber = new StepGrabber(); 
+		//		stepgrabber = new StepGrabber(); 
 		oi = new OI();
 
 
 		autoChooser = new SendableChooser();
-		 autoChooser.addObject("Three Totes.", new AutomousPickUpTotels());
+		autoChooser.addObject("Three Totes .", new AutomousPickUpTotes());
 		// autoChooser.addObject("vision", new AutomousVision());
-		autoChooser.addObject("ShoveTotes", new AutomousPushToteToScore());
-		autoChooser.addDefault("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
-		autoChooser.addObject("Grab Recycle and Tote", new AutomousStrafeToteAndRecycleToScore());
-		// autoChooser.addDefault("Grab Recycle and Tote; Over Bump", new AutomousStrafeToteAndRecycleToScoreOverBump());
+		autoChooser.addObject("Shove Tote To AutoZone", new AutomousPushToteToScore());
+		autoChooser.addObject("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
+		autoChooser.addObject("Grab Recycle and Tote Then Move To AutoZone", new AutomousStrafeToteAndRecycleToScore());
+		autoChooser.addObject("Do Nothing", new AutomousDoNothing());
+		autoChooser.addObject("Grab Recycle", new AutomousPickUpRecycleThenDoNothing());
+		autoChooser.addDefault("Grab Recycle And Move To AutoZone", new AutomousStrafeRecycleToScore());
 		
-        // instantiate the command used for the autonomous period
-		autonomousCommand = new AutomousPickUpTotels();
+		
+		// autoChooser.addDefault("Grab Recycle and Tote; Over Bump", new AutomousStrafeToteAndRecycleToScoreOverBump());
+
+		// instantiate the command used for the autonomous period
+		autonomousCommand = new AutomousPickUpTotes();
 
 		SmartDashboard.putData("Autonomous Mode", autoChooser);
-		
+
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData(drivetrain);
-    }
-	
+	}
+
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		System.out.println("disabledPeriodic");
-        this.Log();
+		this.Log();
 	}
 
-    public void autonomousInit() {
-//      schedule the autonomous command (example)
-//    	  autonomousCommand = new AutomousPickUpTotels();
-//        if (autonomousCommand != null) autonomousCommand.start();
-        toteandrecyclelifterupper.setElevatorPosAtCurent();
-    	autonomousCommand = (Command) autoChooser.getSelected();
-    	autonomousCommand.start();
-   	}
+	public void autonomousInit() {
+		//      schedule the autonomous command (example)
+		//    	  autonomousCommand = new AutomousPickUpTotes();
+		//        if (autonomousCommand != null) autonomousCommand.start();
+		toteandrecyclelifterupper.setElevatorPosAtCurent();
+		autonomousCommand = (Command) autoChooser.getSelected();
+		autonomousCommand.start();
+	}
 
-    /**
-     * This function is called periodically during autonomous
-     */
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-        
-        this.Log();
-    }
+	/**
+	 * This function is called periodically during autonomous
+	 */
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
 
-    public void teleopInit() {
+		this.Log();
+	}
+
+	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) {
-        	autonomousCommand.cancel();
-        }
-        toteandrecyclelifterupper.setElevatorPosAtCurent();
-    }
+		// teleop starts running. If you want the autonomous to 
+		// continue until interrupted by another command, remove
+		// this line or comment it out.
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+		}
+		toteandrecyclelifterupper.setElevatorPosAtCurent();
+	}
 
-    /**
-     * This function is called when the disabled button is hit.
-     * You can use it to reset subsystems before shutting down.
-     */
-    public void disabledInit() {
+	/**
+	 * This function is called when the disabled button is hit.
+	 * You can use it to reset subsystems before shutting down.
+	 */
+	public void disabledInit() {
 
-    }
+	}
 
-    /**
-     * This function is called periodically during operator control
-     */
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        
-        this.Log();
-    }
-    
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
+	/**
+	 * This function is called periodically during operator control
+	 */
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
 
-    public void Log() {
-        drivetrain.Log();
-        toteandrecyclelifterupper.Log();
-//      stepgrabber.Log();
-//      System.out.print(" Robot Time " + time.get());
-//		SmartDashboard.putNumber("Robot Time", time.get());
-//		SmartDashboard.putNumber("Robot Loop Time", time.get() - timerLast);
-//		timerLast = time.get();
-    }
+		this.Log();
+	}
+
+	/**
+	 * This function is called periodically during test mode
+	 */
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
+
+	public void Log() {
+		drivetrain.Log();
+		toteandrecyclelifterupper.Log();
+		//      stepgrabber.Log();
+		//      System.out.print(" Robot Time " + time.get());
+		//		SmartDashboard.putNumber("Robot Time", time.get());
+		//		SmartDashboard.putNumber("Robot Loop Time", time.get() - timerLast);
+		//		timerLast = time.get();
+	}
 }

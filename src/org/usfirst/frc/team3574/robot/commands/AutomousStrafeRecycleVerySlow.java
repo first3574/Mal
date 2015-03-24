@@ -5,7 +5,6 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
-import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -13,18 +12,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutomousStrafeToteAndRecycleToScore extends CommandGroup {
+public class AutomousStrafeRecycleVerySlow extends CommandGroup {
     
-    public  AutomousStrafeToteAndRecycleToScore() {
+    public  AutomousStrafeRecycleVerySlow() {
     	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw(270.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));
     	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
-    	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN), 3);
-    	addSequential(new DriveWithDistance(-0.4, 0, 0, 640));
-    	addSequential(new DriveWithDistance(0, 0.5, 0, 1800));
-    	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
-    	addSequential(new DriveWithDistance(.4, 0, 0, 500));
+    	addSequential(new DriveWithDistance(0, 0.3, 0, 1700));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team3574.robot;
 
-import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotels;
+import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotes;
 import org.usfirst.frc.team3574.robot.commands.CollectWithJoy;
+import org.usfirst.frc.team3574.robot.commands.TestTabsClose;
+import org.usfirst.frc.team3574.robot.commands.TestTabsOpen;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRotate;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveFastSlowDown;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForTime;
@@ -10,6 +12,8 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistanceSmoth
 import org.usfirst.frc.team3574.robot.commands.drivetrain.MoveLeftOrRight;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.DownerUpperWhenToteIsInRobot;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorSlowerTo;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorToSmothly;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
 import org.usfirst.frc.team3574.robot.commands.totelifter.WaitUntilSwitchClicker;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
@@ -85,15 +89,15 @@ public class OI {
     	JoystickButton buttonST = new JoystickButton(stick, 8);  						//PS3 = 10
     	buttonST.whenPressed(new ResetYaw());
     	
-//    	JoystickButton button9 = new JoystickButton(stick, 9);  						
-//    	button9.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.CARRY_LEVEL_OFFSET));
+    	JoystickButton button9 = new JoystickButton(stick, 9);  						
+    	button9.whenPressed(new MoveElevatorToSmothly(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	
 //    	JoystickButton buttonCircle = new JoystickButton(stick, 11);					//PS3 = 3
 //    	buttonCircle.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	
 //    	Magic Programmer Button
        	JoystickButton button7 = new JoystickButton(stick, 7);				
-       	button7.whenPressed(new DriveWithDistanceSmothly(.9, .45, 0.0, 2000));
+       	button7.whenPressed(new MoveElevatorSlowerTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	
 //    	JoystickButton button5 = new JoystickButton(stick, 5);		
 //    	button5.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_IN));
@@ -110,6 +114,8 @@ public class OI {
     	buttonR2.whileHeld(new ManualLifterUper());
     	JoystickButton button1L2 = new JoystickButton(stick, 12);						//PS3 = 7
     	button1L2.whileHeld(new ManualLifterDowner());
+    	
+    	
 //
 //    	
 

@@ -22,10 +22,11 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	
 
 	// Production Robot start carry load contact
-	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -3;
+	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -5;
 	public static final double CARRY_LEVEL_OFFSET = -172;
 	public static final double STACK_LEVEL_OFFSET = -495;
-
+	public static final double ENGAGE_TAB_OFFEST = -92;
+	public static final double DISENGAGE_TAB_OFFSET = -445;
 	
 	
 	public ToteAndRecycleLifterUpper() {
@@ -56,6 +57,19 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	tabSolenoid = new Solenoid(1);
 		
 	}
+	public boolean isTabOpenOrClosed() {
+		return tabSolenoid.get();
+	}
+	
+	public void setElevatorMotorSpeed(double v) {
+		elevatorMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
+		elevatorMotor.set(v);
+	}
+	
+	public void goBackToPIDMode() {
+		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
+		elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot);
+	}
 	
 	public boolean isToteInRobot() {
 		return !switchForCrateInRobot.get();// switch is false when crate is in robot
@@ -67,6 +81,10 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	
 	public void setElevatorPosAtCurent() {
 		elevatorMotor.set(elevatorMotor.getAnalogInRaw());
+	}
+	
+	public void setElevatorPosAtCurrentGet() {
+		elevatorMotor.set(elevatorMotor.get());
 	}
 	
 	public void UpperOrDowner(double amountToMove) {
@@ -91,10 +109,10 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     	recycleSolenoid.set(false);
     }
     public void tabSolenoidHoldTote() {
-    	tabSolenoid.set(false);
+    	tabSolenoid.set(true);
     }
     public void tabSolenoidFreeTote() {
-    	tabSolenoid.set(true);
+    	tabSolenoid.set(false);
     }
     
     // Put methods for controlling this subsystem
@@ -118,6 +136,10 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     
     public double getElevatorOffest() {
     	return (this.bottomLimitSwitchPosition - elevatorMotor.get());
+    }
+    
+    public double getElevatorPos() {
+    	return (elevatorMotor.get());
     }
     
     public void Log() {

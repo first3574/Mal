@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutomousPickUpTotels extends CommandGroup {
+public class AutomousPickUpTotes extends CommandGroup {
     
-    public  AutomousPickUpTotels() {
+    public  AutomousPickUpTotes() {
     	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw());
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN));

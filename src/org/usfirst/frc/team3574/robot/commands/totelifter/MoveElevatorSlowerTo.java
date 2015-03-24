@@ -9,19 +9,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class MoveElevatorTo extends Command {
+public class MoveElevatorSlowerTo extends Command {
 	
 	private double sP = 0.0;
 	int state;
 	int state1;
 	boolean isDone;
+	boolean isMovingUp;
 	double futureStopTime;
+	boolean speedCommandSent = false;
+	double startPoint;
 
-    public MoveElevatorTo(double setPoint) {
+    public MoveElevatorSlowerTo(double setPoint) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.toteandrecyclelifterupper);
     	sP = setPoint;
+    	startPoint = Robot.toteandrecyclelifterupper.getElevatorOffest();
+    	if(sP > Robot.toteandrecyclelifterupper.getElevatorOffest()) {
+    		isMovingUp = true;
+    	}else {
+    		isMovingUp = false;
+    	}
     }
 
     // Called just before this Command runs the first time
@@ -29,21 +38,20 @@ public class MoveElevatorTo extends Command {
     	state = 0;
 //    	state1 = 0;
     	isDone = false;
-    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
+//    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
     	futureStopTime = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	switch (count) {
-//		case 0:
-//			Robot.toteandrecyclelifterupper.setSetpointOffset(sP/2);
-//			
-//			break;
-//
-//		default:
-//			break;
-//		}  p 20 D 6
+    	if(!speedCommandSent) {
+    		Robot.toteandrecyclelifterupper.setElevatorMotorSpeed(0.3);
+    		speedCommandSent = true;
+    	} else if (30 > Math.abs(Robot.toteandrecyclelifterupper.getElevatorOffest() - startPoint)) {
+    		Robot.toteandrecyclelifterupper.goBackToPIDMode();
+    		System.out.println("Finished ramp");
+    		return;
+    	}
     	
     	SmartDashboard.putNumber("Set Point", -sP);
     	SmartDashboard.putBoolean("-sP+7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+7.5)));
@@ -56,28 +64,6 @@ public class MoveElevatorTo extends Command {
     		Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
     	}
     	
-//    	switch (state1) {
-//		case 0:
-//			if ( Robot.toteandrecyclelifterupper.isGoingDown 
-//					&& Robot.toteandrecyclelifterupper.getElevatorOffest() > -Robot.toteandrecyclelifterupper.DISENGAGE_TAB_OFFSET) {
-//				Robot.toteandrecyclelifterupper.UpperOrDowner(1);
-//			}else if (Robot.toteandrecyclelifterupper.isGoingDown 
-//					&& Robot.toteandrecyclelifterupper.getElevatorOffest() < -Robot.toteandrecyclelifterupper.DISENGAGE_TAB_OFFSET) {
-//				state1++;
-//			}
-//			
-//			if(!Robot.toteandrecyclelifterupper.isGoingDown 
-//					&& Robot.toteandrecyclelifterupper.getElevatorOffest() < -Robot.toteandrecyclelifterupper.ENGAGE_TAB_OFFEST) {
-//				Robot.toteandrecyclelifterupper.UpperOrDowner(-1);
-//			}else if (Robot.toteandrecyclelifterupper.isGoingDown 
-//					&& Robot.toteandrecyclelifterupper.getElevatorOffest() > -Robot.toteandrecyclelifterupper.DISENGAGE_TAB_OFFSET) {
-//				state1++;
-//			}
-//			break;
-//
-//		default:
-//			break;
-//		}
     	
     	switch (state) {
 		case 0:
