@@ -38,6 +38,16 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	    
 		elevatorMotor = new CANTalon(5);
 		
+		setElevatorMotorToPIDMode();
+		
+		SmartDashboard.putData(this);
+		
+    	recycleSolenoid = new Solenoid(0);
+    	tabSolenoid = new Solenoid(1);
+		
+	}
+	
+	public void setElevatorMotorToPIDMode() {
 		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
 		
 		elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot);
@@ -50,12 +60,6 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 		elevatorMotor.ConfigFwdLimitSwitchNormallyOpen(false);
 		
 		elevatorMotor.ConfigRevLimitSwitchNormallyOpen(false);
-		
-		SmartDashboard.putData(this);
-		
-    	recycleSolenoid = new Solenoid(0);
-    	tabSolenoid = new Solenoid(1);
-		
 	}
 	public boolean isTabOpenOrClosed() {
 		return tabSolenoid.get();
@@ -64,11 +68,6 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	public void setElevatorMotorSpeed(double v) {
 		elevatorMotor.changeControlMode(CANTalon.ControlMode.PercentVbus);
 		elevatorMotor.set(v);
-	}
-	
-	public void goBackToPIDMode() {
-		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
-		elevatorMotor.setFeedbackDevice(CANTalon.FeedbackDevice.AnalogPot);
 	}
 	
 	public boolean isToteInRobot() {

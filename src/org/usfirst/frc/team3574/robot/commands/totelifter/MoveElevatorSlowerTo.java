@@ -25,7 +25,7 @@ public class MoveElevatorSlowerTo extends Command {
         // eg. requires(chassis);
     	requires(Robot.toteandrecyclelifterupper);
     	sP = setPoint;
-    	startPoint = Robot.toteandrecyclelifterupper.getElevatorOffest();
+    	
     	if(sP > Robot.toteandrecyclelifterupper.getElevatorOffest()) {
     		isMovingUp = true;
     	}else {
@@ -44,12 +44,15 @@ public class MoveElevatorSlowerTo extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	SmartDashboard.putNumber("Elevator offset from beginning",  Math.abs(Robot.toteandrecyclelifterupper.getElevatorOffest() - startPoint));
     	if(!speedCommandSent) {
     		Robot.toteandrecyclelifterupper.setElevatorMotorSpeed(0.3);
     		speedCommandSent = true;
-    	} else if (30 > Math.abs(Robot.toteandrecyclelifterupper.getElevatorOffest() - startPoint)) {
-    		Robot.toteandrecyclelifterupper.goBackToPIDMode();
-    		System.out.println("Finished ramp");
+    		startPoint = Robot.toteandrecyclelifterupper.getElevatorOffest();
+    		SmartDashboard.putBoolean("Elevator ramp finished", false);
+    	} else if (30 < Math.abs(Robot.toteandrecyclelifterupper.getElevatorOffest() - startPoint)) {
+    		Robot.toteandrecyclelifterupper.setElevatorMotorToPIDMode();
+    		SmartDashboard.putBoolean("Elevator ramp finished", true);
     		return;
     	}
     	
