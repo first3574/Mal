@@ -37,16 +37,13 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	    SmartDashboard.putNumber("D", 0.1);
 		elevatorMotor = new CANTalon(5);
 		
-		setElevatorMotorToPIDMode();
 		
 		SmartDashboard.putData(this);
 		
     	recycleSolenoid = new Solenoid(0);
     	tabSolenoid = new Solenoid(1);
-		
-	}
-	
-	public void setElevatorMotorToPIDMode() {
+    	
+    	//setup pid
 		elevatorMotor = new CANTalon(5);
 		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
 		
@@ -60,6 +57,11 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 		elevatorMotor.ConfigFwdLimitSwitchNormallyOpen(false);
 		
 		elevatorMotor.ConfigRevLimitSwitchNormallyOpen(false);
+		
+	}
+	
+	public void setElevatorMotorToPIDMode() {
+		elevatorMotor.changeControlMode(CANTalon.ControlMode.Position);
 	}
 	public boolean isTabOpenOrClosed() {
 		return tabSolenoid.get();
@@ -163,8 +165,8 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 //    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
     	SmartDashboard.putNumber("Elevator Pos", elevatorMotor.get());
 
-//		System.out.println("Getpos " + elevatorMotor.get());
-//		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
+		System.out.println("Getpos " + elevatorMotor.get());
+		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
 
 //    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
 //    		System.out.println("clicked");

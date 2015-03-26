@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands;
 
+import org.usfirst.frc.team3574.robot.RobotConstants;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
@@ -21,7 +22,7 @@ public class AutomousStrafeRecycleToScore extends CommandGroup {
     	addSequential(new ResetYaw(270.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));
     	addSequential(new MoveElevatorTo3());
-    	addSequential(new DriveWithDistance(0, 0.5, 0, 1800));
+    	addSequential(new DriveWithDistance(0, RobotConstants.AUTO_SPEED, 0, RobotConstants.AUTO_DISTANCE));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

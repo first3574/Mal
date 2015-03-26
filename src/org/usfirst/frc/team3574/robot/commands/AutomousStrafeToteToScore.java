@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands;
 
+import org.usfirst.frc.team3574.robot.RobotConstants;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
@@ -19,7 +20,7 @@ public class AutomousStrafeToteToScore extends CommandGroup {
       	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw(90.0));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN), 3);
-    	addSequential(new DriveWithDistance(0, 0.75, 0, 2000));
+    	addSequential(new DriveWithDistance(0, RobotConstants.AUTO_SPEED, 0, RobotConstants.AUTO_DISTANCE));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
     	addSequential(new DriveWithDistance(-.5, 0, 0, 500));
     	

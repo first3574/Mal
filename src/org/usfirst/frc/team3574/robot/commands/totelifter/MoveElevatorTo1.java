@@ -38,44 +38,41 @@ public class MoveElevatorTo1 extends Command {
 		
 		if(pastPos < (Robot.toteandrecyclelifterupper.DISENGAGE_TAB_OFFSET)) {
 			//we are at 3
-			
-//			if(!speedCommandSent) {
-//				Robot.toteandrecyclelifterupper.setElevatorMotorSpeed(0.3);
-//				speedCommandSent = true;
-//				
-//			} else if() {
-//				Robot.toteandrecyclelifterupper.setElevatorMotorSpeed(0.0);
-//				Robot.toteandrecyclelifterupper.
-//				}
-				
-				
-			
+
 			switch (state) {
 			case 0:
 				Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
-				futureStopTime = super.timeSinceInitialized() + .25;
-				state++;
+				Robot.toteandrecyclelifterupper.UpperOrDowner(2);
+				if (super.timeSinceInitialized() > 1.2) {
+					state++;
+				}
+
+//				futureStopTime = super.timeSinceInitialized() + .25;
+//				state++;
 
 				break;	
 
 			case 1:
-				if (futureStopTime <= super.timeSinceInitialized()) {
+
+//				if (futureStopTime <= super.timeSinceInitialized()) {
 					if (toteInRobotAtStart) {
 						Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
 					} else {
-						Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
+//						Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
+						Robot.toteandrecyclelifterupper.UpperOrDowner(5);
 					}
 
 					state++;
-				}
+//				}
 				break;
 			case 2:
 				if (Robot.toteandrecyclelifterupper.getElevatorOffest() <= (-targetOffset + 7.5) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-targetOffset - 7.5)) {
 					if (toteInRobotAtStart) {
 						Robot.toteandrecyclelifterupper.openRecycle();
 					}
-
 					isDone = true;
+				} else if(!toteInRobotAtStart) {
+					Robot.toteandrecyclelifterupper.UpperOrDowner(5);
 				}
 				break;
 			default:
@@ -88,16 +85,21 @@ public class MoveElevatorTo1 extends Command {
 			switch (state) {
 			case 0:
 				Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
-				futureStopTime = super.timeSinceInitialized() + .25;
-				state++;
+				Robot.toteandrecyclelifterupper.UpperOrDowner(2);
+				if (super.timeSinceInitialized() > .4) {
+					state++;
+				}
+				
+//				futureStopTime = super.timeSinceInitialized() + .25;
+//				state++;
 
 				break;	
 
 			case 1:
-				if (futureStopTime <= super.timeSinceInitialized()) {
+//				if (futureStopTime <= super.timeSinceInitialized()) {
 					Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
 					state++;
-				}
+//				}
 				break;
 			case 2:
 				if (Robot.toteandrecyclelifterupper.getElevatorOffest() <= (-targetOffset + 7.5) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-targetOffset - 7.5)) {
