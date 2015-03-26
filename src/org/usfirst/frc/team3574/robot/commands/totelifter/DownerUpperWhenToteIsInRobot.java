@@ -19,7 +19,7 @@ public class DownerUpperWhenToteIsInRobot extends CommandGroup {
 //    	addParallel(new DriveWithJoy());
     	addSequential(new WaitUntilSwitchClicker());
 //    	addParallel(new NoDrive(), 1.5);
-    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	addSequential(new MoveElevatorTo1());
     	addSequential(targetHeightCommand);
         // Add Commands here:
         // e.g. addSequential(new Command1());

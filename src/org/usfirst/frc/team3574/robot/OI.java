@@ -2,6 +2,7 @@ package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotes;
 import org.usfirst.frc.team3574.robot.commands.CollectWithJoy;
+import org.usfirst.frc.team3574.robot.commands.MoveElevatorToSlowly;
 import org.usfirst.frc.team3574.robot.commands.TestTabsClose;
 import org.usfirst.frc.team3574.robot.commands.TestTabsOpen;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveByCameraRotate;
@@ -12,7 +13,10 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistanceSmoth
 import org.usfirst.frc.team3574.robot.commands.drivetrain.MoveLeftOrRight;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.DownerUpperWhenToteIsInRobot;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo1;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorSlowerTo;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo2;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo3;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorToSmothly;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
 import org.usfirst.frc.team3574.robot.commands.totelifter.WaitUntilSwitchClicker;
@@ -89,16 +93,17 @@ public class OI {
     	JoystickButton buttonST = new JoystickButton(stick, 8);  						//PS3 = 10
     	buttonST.whenPressed(new ResetYaw());
     	
-    	JoystickButton button9 = new JoystickButton(stick, 9);  						
-    	button9.whenPressed(new MoveElevatorToSmothly(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+//    	Magic Programmer Button 2
+//    	JoystickButton button9 = new JoystickButton(stick, 9);  						
+//    	button9.whenPressed(new MoveElevatorToSlowly(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	
 //    	JoystickButton buttonCircle = new JoystickButton(stick, 11);					//PS3 = 3
 //    	buttonCircle.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	
-//    	Magic Programmer Button
-       	JoystickButton button7 = new JoystickButton(stick, 7);				
-       	button7.whenPressed(new MoveElevatorSlowerTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
-//    	
+//    	Magic Programmer Button 1
+//       	JoystickButton button7 = new JoystickButton(stick, 7);				
+//       	button7.whenPressed(new MoveElevatorSlowerTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+////    	
 //    	JoystickButton button5 = new JoystickButton(stick, 5);		
 //    	button5.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_IN));
     	
@@ -156,11 +161,11 @@ public class OI {
     	buttonY2.whileActive(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT));
     	
     	JoystickButton leftBumper = new JoystickButton(stick2, 5);  						
-    	leftBumper.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	leftBumper.whenPressed(new MoveElevatorTo1());
     	JoystickButton back = new JoystickButton(stick2, 7);  						
-    	back.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.CARRY_LEVEL_OFFSET));
+    	back.whenPressed(new MoveElevatorTo2());
     	JoystickButton rightBummper = new JoystickButton(stick2, 6);  						
-    	rightBummper.whenPressed(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
+    	rightBummper.whenPressed(new MoveElevatorTo3());
   	
     	JoystickButton buttonStart2 = new JoystickButton(stick2, 8);		
 //    	buttonStart2.whenPressed(new Calibrate());
@@ -172,9 +177,9 @@ public class OI {
     	rightJoyButton.whenPressed(new StackRecyclingContainerOpenArms(false));
     	
     	TrigerButton rightTrig = new TrigerButton(stick2, 3);
-    	rightTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET)));
+    	rightTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo3()));
     	TrigerButton leftTrig = new TrigerButton(stick2, 2);
-    	leftTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo(ToteAndRecycleLifterUpper.CARRY_LEVEL_OFFSET)));
+    	leftTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo2()));
      	
     	
 //    	JoystickButton buttonLB2 = new JoystickButton(stick2, 5);						//PS3 = 5
@@ -191,9 +196,11 @@ public class OI {
     	
 //    	useing the D Pad
 
-
-    	SmartDashboard.putData("Drive By Camera", new DriveByCameraRotate());
     	
+    	SmartDashboard.putData("Drive By Camera", new DriveByCameraRotate());
+//    	SmartDashboard.putData("MoveElevelatorTo1", new MoveElevatorTo1());
+//    	SmartDashboard.putData("MoveElevelatorTo2", new MoveElevatorTo2());
+//    	SmartDashboard.putData("MoveElevelatorTo3", new MoveElevatorTo3());
     }
 
     public int dPadControl() {

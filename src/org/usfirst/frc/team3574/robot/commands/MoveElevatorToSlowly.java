@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3574.robot.commands.totelifter;
+package org.usfirst.frc.team3574.robot.commands;
 
 import org.usfirst.frc.team3574.robot.Robot;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
@@ -9,15 +9,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class MoveElevatorTo extends Command {
+public class MoveElevatorToSlowly extends Command {
 	
 	private double sP = 0.0;
+	double getToSetPointSlowly = 0.0;
 	int state;
 	int state1;
 	boolean isDone;
 	double futureStopTime;
 
-    public MoveElevatorTo(double setPoint) {
+    public MoveElevatorToSlowly(double setPoint) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.toteandrecyclelifterupper);
@@ -30,32 +31,27 @@ public class MoveElevatorTo extends Command {
 //    	state1 = 0;
     	isDone = false;
     	Robot.toteandrecyclelifterupper.setElevatorMotorToPIDMode();
-    	Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
+    	getToSetPointSlowly = Robot.toteandrecyclelifterupper.getElevatorOffest();
     	futureStopTime = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	switch (count) {
-//		case 0:
-//			Robot.toteandrecyclelifterupper.setSetpointOffset(sP/2);
-//			
-//			break;
-//
-//		default:
-//			break;
-//		}  p 20 D 6
     	
-    	SmartDashboard.putNumber("Set Point", -sP);
-    	SmartDashboard.putBoolean("-sP+7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+7.5)));
-    	SmartDashboard.putBoolean("-sP-7.5", (Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-7.5)));
+    	if ((Robot.toteandrecyclelifterupper.getElevatorOffest() > -sP) && (-sP <= getToSetPointSlowly)) {
+    		getToSetPointSlowly = (Robot.toteandrecyclelifterupper.getElevatorOffest() + 2);
+    	} else if ((Robot.toteandrecyclelifterupper.getElevatorOffest() < -sP) && (-sP >= getToSetPointSlowly)) {
+    		getToSetPointSlowly = (Robot.toteandrecyclelifterupper.getElevatorOffest() - 2);
+    	}
     	
+    	Robot.toteandrecyclelifterupper.setSetpointOffset(-getToSetPointSlowly); 	
    
     	
     	if (Robot.toteandrecyclelifterupper.isGoingDown) {
     		Robot.toteandrecyclelifterupper.openRecycle();
     		Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
     	}
+    	
     	
     	switch (state) {
 		case 0:
@@ -86,12 +82,12 @@ public class MoveElevatorTo extends Command {
 			//ToDo: Make Robot Explode >:)
 			break;
 		}
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if (Robot.toteandrecyclelifterupper.getElevatorOffest() <=(-sP+7.5) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-sP-7.5)) {
+    		Robot.toteandrecyclelifterupper.setSetpointOffset(sP);
     		isDone = true;
     	}
         return isDone;

@@ -4,6 +4,7 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo3;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
 import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
@@ -19,7 +20,7 @@ public class AutomousStrafeToteAndRecycleToScore extends CommandGroup {
     	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw(270.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));
-    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
+    	addSequential(new MoveElevatorTo3());
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_IN, Collector.RIGHT_MOTOR_IN), 3);
     	addSequential(new DriveWithDistance(-0.4, 0, 0, 640));
     	addSequential(new DriveWithDistance(0, 0.5, 0, 1800));

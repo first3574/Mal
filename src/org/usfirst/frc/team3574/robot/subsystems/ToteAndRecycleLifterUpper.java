@@ -35,7 +35,6 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	    SmartDashboard.putNumber("P", 20);
 	    SmartDashboard.putNumber("I", 0.05);
 	    SmartDashboard.putNumber("D", 0.1);
-	    
 		elevatorMotor = new CANTalon(5);
 		
 		setElevatorMotorToPIDMode();
@@ -90,6 +89,10 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	public void UpperOrDowner(double amountToMove) {
 		SmartDashboard.putNumber("AmountToMove", amountToMove);
 		elevatorMotor.set(elevatorMotor.getSetpoint() + amountToMove);
+	}
+	
+	public double getSetpointOffset() {
+		return elevatorMotor.get() - bottomLimitSwitchPosition;
 	}
 	
 	public void setSetpointOffset(double offset) {
@@ -160,8 +163,8 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 //    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
     	SmartDashboard.putNumber("Elevator Pos", elevatorMotor.get());
 
-		System.out.println("Getpos " + elevatorMotor.get());
-		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
+//		System.out.println("Getpos " + elevatorMotor.get());
+//		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
 
 //    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
 //    		System.out.println("clicked");

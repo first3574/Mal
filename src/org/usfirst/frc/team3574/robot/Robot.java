@@ -66,9 +66,9 @@ public class Robot extends IterativeRobot {
 
 
 		autoChooser = new SendableChooser();
-		autoChooser.addObject("Three Totes .", new AutomousPickUpTotes());
+//		autoChooser.addObject("Three Totes .", new AutomousPickUpTotes());
 		// autoChooser.addObject("vision", new AutomousVision());
-		autoChooser.addObject("Shove Tote To AutoZone", new AutomousPushToteToScore());
+//		autoChooser.addObject("Shove Tote To AutoZone", new AutomousPushToteToScore());
 		autoChooser.addObject("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
 		autoChooser.addObject("Grab Recycle and Tote Then Move To AutoZone", new AutomousStrafeToteAndRecycleToScore());
 		autoChooser.addObject("Do Nothing", new AutomousDoNothing());
@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println("disabledPeriodic");
+//		System.out.println("disabledPeriodic");
 		this.Log();
 	}
 

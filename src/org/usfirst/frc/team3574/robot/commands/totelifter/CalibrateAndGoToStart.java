@@ -11,7 +11,7 @@ public class CalibrateAndGoToStart extends CommandGroup {
     
     public  CalibrateAndGoToStart() {
     	addSequential(new Calibrate());
-    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	// addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
