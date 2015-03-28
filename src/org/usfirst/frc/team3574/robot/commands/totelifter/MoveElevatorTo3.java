@@ -21,6 +21,7 @@ public class MoveElevatorTo3 extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("MoveTo3Init");
 		state = 0;
 		isDone = false;
 		pastPos = Robot.toteandrecyclelifterupper.getSetpointOffset();
@@ -28,7 +29,7 @@ public class MoveElevatorTo3 extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		System.out.println("MT3" + Robot.toteandrecyclelifterupper.isToteInRobot());
+//		System.out.println("MT3" + Robot.toteandrecyclelifterupper.isToteInRobot());
 		
 		if(pastPos > (Robot.toteandrecyclelifterupper.ENGAGE_TAB_OFFEST)) {
 			//we are at 1
@@ -79,10 +80,12 @@ public class MoveElevatorTo3 extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		System.out.println("MoveTo3End");
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		System.out.println("MoveTo3Interrupted");
 	}
 }

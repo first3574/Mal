@@ -1,30 +1,22 @@
 package org.usfirst.frc.team3574.robot.commands.totelifter;
 
-import org.usfirst.frc.team3574.robot.commands.CollectWithJoy;
-import org.usfirst.frc.team3574.robot.commands.Log;
-import org.usfirst.frc.team3574.robot.commands.NoDrive;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
-import org.usfirst.frc.team3574.robot.subsystems.Collector;
 import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
+public class OldDownerUpperToteInRobot extends CommandGroup {
     
-public class DownerUpperWhenToteIsInRobot extends CommandGroup {
-    public  DownerUpperWhenToteIsInRobot(Command targetHeightCommand) {
-    	addSequential(new Log("before", .0001));
-//    	addParallel(new DriveWithJoy());
+    public  OldDownerUpperToteInRobot() {
+    	addParallel(new DriveWithJoy());
     	addSequential(new WaitUntilSwitchClicker());
 //    	addParallel(new NoDrive(), 1.5);
-    	addSequential(new MoveElevatorTo1());
-    	addSequential(new Log("after 1", .0001));
-    	addSequential(targetHeightCommand);
-    	addSequential(new Log("after 3", .0001));
+    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
+    	addSequential(new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+//    	addSequential(targetHeightCommand);
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

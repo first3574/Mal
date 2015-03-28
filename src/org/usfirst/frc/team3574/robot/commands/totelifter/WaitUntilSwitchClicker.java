@@ -24,9 +24,7 @@ public class WaitUntilSwitchClicker extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		
-		System.out.println("wait" + Robot.toteandrecyclelifterupper.isToteInRobot());
+//		System.out.println("wait" + Robot.toteandrecyclelifterupper.isToteInRobot());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

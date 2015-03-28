@@ -26,7 +26,7 @@ public class AutomousStrafeToteAndRecycleToScore extends CommandGroup {
     	addSequential(new DriveWithDistance(-0.4, 0, 0, 640));
     	addSequential(new DriveWithDistance(0, RobotConstants.AUTO_SPEED, 0, RobotConstants.AUTO_DISTANCE));
     	addParallel(new CollectWithJoy(Collector.LEFT_MOTOR_OUT, Collector.RIGHT_MOTOR_OUT), 3);
-    	addSequential(new DriveWithDistance(.4, 0, 0, 500));
+    	addSequential(new DriveWithDistance(.4, 0, 0, 640));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

@@ -23,50 +23,57 @@ public class MoveElevatorTo1 extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("MoveTo1Init");
 		state = 0;
 		isDone = false;
 		pastPos = Robot.toteandrecyclelifterupper.getSetpointOffset();
 		toteInRobotAtStart = Robot.toteandrecyclelifterupper.isToteInRobot();
 		speedCommandSent = false;
-		
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		System.out.println("MT1 Live" + Robot.toteandrecyclelifterupper.isToteInRobot());
-		System.out.println("MT! Stored" + toteInRobotAtStart);
-		
+		//		System.out.println("MT1 Live" + Robot.toteandrecyclelifterupper.isToteInRobot());
+		//		System.out.println("MT! Stored" + toteInRobotAtStart);
+		//		System.out.println("MoveTo1Exe");
+
 		if(pastPos < (Robot.toteandrecyclelifterupper.DISENGAGE_TAB_OFFSET)) {
 			//we are at 3
+			////		System.out.print(" at 3 ");
+			//ToDo: Check with drive team
+			//			Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
 
 			switch (state) {
 			case 0:
 				Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
-				Robot.toteandrecyclelifterupper.UpperOrDowner(2);
-				if (super.timeSinceInitialized() > 1.2) {
+				Robot.toteandrecyclelifterupper.UpperOrDowner(3);
+				if (super.timeSinceInitialized() > 0.4) {
 					state++;
 				}
 
-//				futureStopTime = super.timeSinceInitialized() + .25;
-//				state++;
+				//				futureStopTime = super.timeSinceInitialized() + .25;
+				//				state++;
 
 				break;	
 
 			case 1:
 
-//				if (futureStopTime <= super.timeSinceInitialized()) {
-					if (toteInRobotAtStart) {
-						Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
-					} else {
-//						Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
-						Robot.toteandrecyclelifterupper.UpperOrDowner(5);
-					}
+				//				if (futureStopTime <= super.timeSinceInitialized()) {
+				if (toteInRobotAtStart) {
+					Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
+				} else {
+					//						Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
+					Robot.toteandrecyclelifterupper.UpperOrDowner(6);
+				}
 
-					state++;
-//				}
+				state++;
+				//				}
 				break;
 			case 2:
+				////			System.out.print(Robot.toteandrecyclelifterupper.getElevatorOffest());
 				if (Robot.toteandrecyclelifterupper.getElevatorOffest() <= (-targetOffset + 7.5) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-targetOffset - 7.5)) {
+					//					System.out.println("In Target Range");
 					if (toteInRobotAtStart) {
 						Robot.toteandrecyclelifterupper.openRecycle();
 					}
@@ -82,6 +89,9 @@ public class MoveElevatorTo1 extends Command {
 
 		} else {
 			//we are at 2
+			//ToDo: Check with drive team
+			//			Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
+//			System.out.print(" at 2 ");
 			switch (state) {
 			case 0:
 				Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
@@ -89,22 +99,24 @@ public class MoveElevatorTo1 extends Command {
 				if (super.timeSinceInitialized() > .4) {
 					state++;
 				}
-				
-//				futureStopTime = super.timeSinceInitialized() + .25;
-//				state++;
+
+				//				futureStopTime = super.timeSinceInitialized() + .25;
+				//				state++;
 
 				break;	
 
 			case 1:
-//				if (futureStopTime <= super.timeSinceInitialized()) {
-					Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
-					state++;
-//				}
+				//				if (futureStopTime <= super.timeSinceInitialized()) {
+				Robot.toteandrecyclelifterupper.setSetpointOffset(targetOffset);
+				state++;
+				//				}
 				break;
 			case 2:
+				System.out.print(Robot.toteandrecyclelifterupper.getElevatorOffest());
 				if (Robot.toteandrecyclelifterupper.getElevatorOffest() <= (-targetOffset + 7.5) && Robot.toteandrecyclelifterupper.getElevatorOffest() >=(-targetOffset - 7.5)) {
 					isDone = true;
 				}
+
 				break;
 			default:
 				//ToDo: Make Robot Explode >:)
@@ -115,17 +127,20 @@ public class MoveElevatorTo1 extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		if (Robot.toteandrecyclelifterupper.isBottomLimitTriped()) {
+			Robot.toteandrecyclelifterupper.calibrateBottomToCurrentPos();
+		}
 		return isDone;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		System.out.println("end");
+		System.out.println("MoveTo1End");
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		System.out.println("int");
+		System.out.println("MoveTo1Init");
 	}
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotes;
+import org.usfirst.frc.team3574.robot.commands.ChangeToVoltageMode;
 import org.usfirst.frc.team3574.robot.commands.CollectWithJoy;
 import org.usfirst.frc.team3574.robot.commands.MoveElevatorToSlowly;
 import org.usfirst.frc.team3574.robot.commands.TestTabsClose;
@@ -18,6 +19,7 @@ import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorSlowerTo;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo2;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo3;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorToSmothly;
+import org.usfirst.frc.team3574.robot.commands.totelifter.OldDownerUpperToteInRobot;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
 import org.usfirst.frc.team3574.robot.commands.totelifter.WaitUntilSwitchClicker;
 import org.usfirst.frc.team3574.robot.commands.totelifter.Calibrate;
@@ -178,8 +180,22 @@ public class OI {
     	
     	TrigerButton rightTrig = new TrigerButton(stick2, 3);
     	rightTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo3()));
+    	/**
+    	 * this area is for new code that we want to try out
+    	 */
+    	
+    	
+    	
+    	
+    	/**
+    	 * end new code
+    	 */
+    	
+//    	rightTrig.whenPressed(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo3()));
+//    	  rightTrig.whenActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo3()));
     	TrigerButton leftTrig = new TrigerButton(stick2, 2);
     	leftTrig.whileActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo2()));
+//    	  leftTrig.whenActive(new DownerUpperWhenToteIsInRobot(new MoveElevatorTo2()));    	
      	
     	
 //    	JoystickButton buttonLB2 = new JoystickButton(stick2, 5);						//PS3 = 5
@@ -196,7 +212,9 @@ public class OI {
     	
 //    	useing the D Pad
 
-    	
+    	SmartDashboard.putData("OldElevatorTop", new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
+    	SmartDashboard.putData("OldElevatorBottom", new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+    	SmartDashboard.putData("OldUpperDownerToteIsInRobot", new OldDownerUpperToteInRobot());
     	SmartDashboard.putData("Drive By Camera", new DriveByCameraRotate());
 //    	SmartDashboard.putData("MoveElevelatorTo1", new MoveElevatorTo1());
 //    	SmartDashboard.putData("MoveElevelatorTo2", new MoveElevatorTo2());

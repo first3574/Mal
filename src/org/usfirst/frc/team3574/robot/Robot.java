@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
 		autoChooser.addObject("Grab Recycle and Tote Then Move To AutoZone", new AutomousStrafeToteAndRecycleToScore());
 		autoChooser.addObject("Do Nothing", new AutomousDoNothing());
-		autoChooser.addObject("Grab Recycle", new AutomousPickUpRecycleThenDoNothing());
+		autoChooser.addObject("Grab Recycle Only", new AutomousPickUpRecycleThenDoNothing());
 		autoChooser.addDefault("Grab Recycle And Move To AutoZone", new AutomousStrafeRecycleToScore());
 		
 		

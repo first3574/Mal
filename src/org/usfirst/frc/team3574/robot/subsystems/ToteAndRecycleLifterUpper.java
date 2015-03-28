@@ -25,7 +25,7 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 	public static final double ALLOW_PICKUP_LEVEL_OFFSET = -5;
 	public static final double CARRY_LEVEL_OFFSET = -172;
 	public static final double STACK_LEVEL_OFFSET = -495;
-	public static final double ENGAGE_TAB_OFFEST = -98;
+	public static final double ENGAGE_TAB_OFFEST = -98;     // we started the auburn match at -94
 	public static final double DISENGAGE_TAB_OFFSET = -445;
 	
 	
@@ -148,14 +148,14 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
     }
     
     public void Log() {
-    	double diffOfPid = (elevatorMotor.getSetpoint()-elevatorMotor.get());
-    	if (diffOfPid > 12.5) {
-    		diffOfPid = 12.5;
-    	} else if (diffOfPid < -12.5) {
-    		diffOfPid = -12.5;
-    	}
+//    	double diffOfPid = (elevatorMotor.getSetpoint()-elevatorMotor.get());
+//    	if (diffOfPid > 12.5) {
+//    		diffOfPid = 12.5;
+//    	} else if (diffOfPid < -12.5) {
+//    		diffOfPid = -12.5;
+//    	}
 //    	SmartDashboard.putNumber("Elavator Set Point vs. Actual Point", diffOfPid);
-    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
+//    	SmartDashboard.putNumber("Elavator Petentiometer Offset", getElevatorOffest());
     	SmartDashboard.putNumber("Elavator Set Point", elevatorMotor.getSetpoint());
 //    	SmartDashboard.putBoolean("Elavator Bottom Limit Switch", elevatorMotor.isFwdLimitSwitchClosed());
 //    	SmartDashboard.putBoolean("Elavator Top Limit Switch", elevatorMotor.isRevLimitSwitchClosed());
@@ -165,8 +165,8 @@ public class ToteAndRecycleLifterUpper extends Subsystem {
 //    	SmartDashboard.putBoolean("Solenoid State", recycleSolenoid.get());
     	SmartDashboard.putNumber("Elevator Pos", elevatorMotor.get());
 
-		System.out.println("Getpos " + elevatorMotor.get());
-		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
+//		System.out.println("Getpos " + elevatorMotor.get());
+//		System.out.println("GetAnalogPos " + elevatorMotor.getAnalogInRaw());
 
 //    	if (!elevatorMotor.isRevLimitSwitchClosed() || !elevatorMotor.isFwdLimitSwitchClosed()) {
 //    		System.out.println("clicked");

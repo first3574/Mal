@@ -21,6 +21,7 @@ public class MoveElevatorTo2 extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("MoveTo2Init");
 		state = 0;
 		isDone = false;
 		pastPos = Robot.toteandrecyclelifterupper.getSetpointOffset();
@@ -30,6 +31,7 @@ public class MoveElevatorTo2 extends Command {
 	protected void execute() {
 		if(pastPos < (ToteAndRecycleLifterUpper.CARRY_LEVEL_OFFSET)) {
 			//we are at 3
+//			Robot.toteandrecyclelifterupper.tabSolenoidFreeTote();
 
 			if (Robot.toteandrecyclelifterupper.isToteInRobot()) {
 				isDone = true;
@@ -92,10 +94,12 @@ public class MoveElevatorTo2 extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		System.out.println("MoveTo2End");
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		System.out.println("MoveTo2Done");
 	}
 }
