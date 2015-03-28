@@ -2,6 +2,7 @@ package org.usfirst.frc.team3574.robot.commands;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo3;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -15,6 +16,7 @@ public class AutomousPickUpRecycleThenDoNothing extends CommandGroup {
     	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw(270.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));
+    	addSequential(new MoveElevatorTo3());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

@@ -4,5 +4,5 @@ public class RobotConstants {
 	//known good .75 2000
 	
 	public static final double AUTO_SPEED = 0.35;
-	public static final int AUTO_DISTANCE = 2100;
+	public static final int AUTO_DISTANCE = 2340;
 }
