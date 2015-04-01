@@ -4,13 +4,12 @@ import org.usfirst.frc.team3574.robot.OI;
 import org.usfirst.frc.team3574.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DriveWithJoy extends Command {
+public class DriveWithMiniJoy extends Command {
 	double deadZone;
 	double throttle;
 	double scaledX, scaledY, scaledZ;
@@ -18,7 +17,7 @@ public class DriveWithJoy extends Command {
 	final private double MAKE_GO_STRAIGHT = 0.9;
 	
 
-	public DriveWithJoy() {
+	public DriveWithMiniJoy() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drivetrain);
 		System.out.println("drive with joy started");
@@ -58,7 +57,6 @@ public class DriveWithJoy extends Command {
 		
 		SmartDashboard.putNumber("Scaled Y", scaledY);
 		SmartDashboard.putNumber("Jostick Y", oI.joystickY());
-
 	}
 
 
@@ -75,14 +73,14 @@ public class DriveWithJoy extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 	}
-
+	
 	public double joystickScale(double input) {
 		boolean isNegative = false;
 		if (input < 0.0) {
 			isNegative = true;
 		}
 		input = Math.abs(input);
-		double result = (Math.pow(Math.E, input) - 1) / 1.718;
+		double result = (Math.pow(input, .5));
 		if (isNegative) {
 			result *= -1.0;
 		}

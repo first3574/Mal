@@ -11,6 +11,8 @@ import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveFastSlowDown;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForTime;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistanceSmothly;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithMiniJoy;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.MoveLeftOrRight;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.DownerUpperWhenToteIsInRobot;
@@ -212,9 +214,9 @@ public class OI {
     	
 //    	useing the D Pad
 
-    	SmartDashboard.putData("OldElevatorTop", new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
-    	SmartDashboard.putData("OldElevatorBottom", new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
-    	SmartDashboard.putData("OldUpperDownerToteIsInRobot", new OldDownerUpperToteInRobot());
+//    	SmartDashboard.putData("OldElevatorTop", new MoveElevatorTo(ToteAndRecycleLifterUpper.STACK_LEVEL_OFFSET));
+//    	SmartDashboard.putData("OldElevatorBottom", new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
+//    	SmartDashboard.putData("OldUpperDownerToteIsInRobot", new OldDownerUpperToteInRobot());
     	SmartDashboard.putData("Drive By Camera", new DriveByCameraRotate());
 //    	SmartDashboard.putData("MoveElevelatorTo1", new MoveElevatorTo1());
 //    	SmartDashboard.putData("MoveElevelatorTo2", new MoveElevatorTo2());

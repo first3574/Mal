@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousDoNothing;
+import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleAndTurn;
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleThenDoNothing;
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotes;
 import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
@@ -73,6 +74,7 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Grab Recycle and Tote Then Move To AutoZone", new AutomousStrafeToteAndRecycleToScore());
 		autoChooser.addObject("Do Nothing", new AutomousDoNothing());
 		autoChooser.addObject("Grab Recycle Only", new AutomousPickUpRecycleThenDoNothing());
+		autoChooser.addObject("Grab Recycle And Turn", new AutomousPickUpRecycleAndTurn());
 		autoChooser.addDefault("Grab Recycle And Move To AutoZone", new AutomousStrafeRecycleToScore());
 		
 		

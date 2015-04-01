@@ -17,14 +17,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
     
 public class DownerUpperWhenToteIsInRobot extends CommandGroup {
     public  DownerUpperWhenToteIsInRobot(Command targetHeightCommand) {
-    	addSequential(new Log("before", .0001));
+//    	addSequential(new Log("before", .0001));
 //    	addParallel(new DriveWithJoy());
     	addSequential(new WaitUntilSwitchClicker());
 //    	addParallel(new NoDrive(), 1.5);
     	addSequential(new MoveElevatorTo1());
-    	addSequential(new Log("after 1", .0001));
+//    	addSequential(new Log("after 1", .0001));
     	addSequential(targetHeightCommand);
-    	addSequential(new Log("after 3", .0001));
+//    	addSequential(new Log("after 3", .0001));
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
