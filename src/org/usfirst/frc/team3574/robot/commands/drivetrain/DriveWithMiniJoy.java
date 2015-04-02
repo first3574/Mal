@@ -13,7 +13,6 @@ public class DriveWithMiniJoy extends Command {
 	double deadZone;
 	double throttle;
 	double scaledX, scaledY, scaledZ;
-	OI oI = Robot.oi;
 	final private double MAKE_GO_STRAIGHT = 0.9;
 	
 
@@ -27,28 +26,28 @@ public class DriveWithMiniJoy extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize()  {
 		throttle = 1.0;
-		deadZone = 0.05;
+		deadZone = 0.1;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
     	
-		if(Math.abs(oI.joystickX()) > MAKE_GO_STRAIGHT || (Math.abs(oI.joystickY()) > MAKE_GO_STRAIGHT)){
+		if(Math.abs(Robot.oi.joystickX()) > MAKE_GO_STRAIGHT || (Math.abs(Robot.oi.joystickY()) > MAKE_GO_STRAIGHT)){
 			deadZone = .3;
 		} else {
 			deadZone = .05;
 		}
 		
-		if (oI.isTriggerPulled()) {
+		if (Robot.oi.isTriggerPulled()) {
 			throttle = 1;
 		} else {
-			throttle = ((-oI.joystickThrottle() + 1) / 4) +.5;
+			throttle = ((-Robot.oi.joystickThrottle() + 1) / 4) +.5;
 		}
 
-		scaledX = Math.abs(-oI.joystickX()) < deadZone ? 0.0 : -oI.joystickX() * throttle;
-		scaledY = Math.abs(-oI.joystickY()) < deadZone ? 0.0 : -oI.joystickY() * throttle; 
-		scaledZ = Math.abs(oI.joystickZ()) < deadZone ? 0.0 : oI.joystickZ() * throttle;
+		scaledX = Math.abs(-Robot.oi.joystickX()) < deadZone ? 0.0 : -Robot.oi.joystickX() * throttle;
+		scaledY = Math.abs(-Robot.oi.joystickY()) < deadZone ? 0.0 : -Robot.oi.joystickY() * throttle; 
+		scaledZ = Math.abs(Robot.oi.joystickZ()) < deadZone ? 0.0 : Robot.oi.joystickZ() * throttle;
 		scaledX = joystickScale(scaledX);
 		scaledY = joystickScale(scaledY);				
 		scaledZ = joystickScale(scaledZ);
@@ -56,7 +55,7 @@ public class DriveWithMiniJoy extends Command {
 		Robot.drivetrain.driveFieldOrientated(scaledX, scaledY, scaledZ, throttle);
 		
 		SmartDashboard.putNumber("Scaled Y", scaledY);
-		SmartDashboard.putNumber("Jostick Y", oI.joystickY());
+		SmartDashboard.putNumber("Jostick Y", Robot.oi.joystickY());
 	}
 
 
@@ -80,7 +79,7 @@ public class DriveWithMiniJoy extends Command {
 			isNegative = true;
 		}
 		input = Math.abs(input);
-		double result = (Math.pow(input, .5));
+		double result = (Math.pow(input, .85));
 		if (isNegative) {
 			result *= -1.0;
 		}

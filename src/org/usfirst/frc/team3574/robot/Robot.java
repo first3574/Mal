@@ -3,11 +3,13 @@ package org.usfirst.frc.team3574.robot;
 
 import org.usfirst.frc.team3574.robot.commands.AutomousDoNothing;
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleAndTurn;
-import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleThenDoNothing;
+import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleThenDoNothingLEFTSIDE;
+import org.usfirst.frc.team3574.robot.commands.AutomousPickUpRecycleThenDoNothingRIGHTSIDE;
 import org.usfirst.frc.team3574.robot.commands.AutomousPickUpTotes;
 import org.usfirst.frc.team3574.robot.commands.AutomousPushToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousGoSpin;
-import org.usfirst.frc.team3574.robot.commands.AutomousStrafeRecycleToScore;
+import org.usfirst.frc.team3574.robot.commands.AutomousStrafeRecycleToScoreLEFTSIDE;
+import org.usfirst.frc.team3574.robot.commands.AutomousStrafeRecycleToScoreRIGHTSIDE;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteAndRecycleToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousStrafeToteToScore;
 import org.usfirst.frc.team3574.robot.commands.AutomousVision;
@@ -72,11 +74,13 @@ public class Robot extends IterativeRobot {
 //		autoChooser.addObject("Shove Tote To AutoZone", new AutomousPushToteToScore());
 		autoChooser.addObject("Grab One Tote And Move To AutoZone", new AutomousStrafeToteToScore());
 		autoChooser.addObject("Grab Recycle and Tote Then Move To AutoZone", new AutomousStrafeToteAndRecycleToScore());
-		autoChooser.addObject("Do Nothing", new AutomousDoNothing());
-		autoChooser.addObject("Grab Recycle Only", new AutomousPickUpRecycleThenDoNothing());
+		autoChooser.addObject("Grab Recycle Only LEFTSIDE", new AutomousPickUpRecycleThenDoNothingLEFTSIDE());
+		autoChooser.addObject("Grab Recycle Only RIGHTSIDE", new AutomousPickUpRecycleThenDoNothingRIGHTSIDE());
+		autoChooser.addDefault("Grab Recycle And MOVE To AutoZone LEFTSIDE", new AutomousStrafeRecycleToScoreLEFTSIDE());
+		autoChooser.addObject("Grab Recycle And MOVE To AutoZone RIGHTSIDE", new AutomousStrafeRecycleToScoreRIGHTSIDE());
 		autoChooser.addObject("Grab Recycle And Turn", new AutomousPickUpRecycleAndTurn());
-		autoChooser.addDefault("Grab Recycle And Move To AutoZone", new AutomousStrafeRecycleToScore());
-		
+		autoChooser.addObject("Do Nothing", new AutomousDoNothing());
+
 		
 		// autoChooser.addDefault("Grab Recycle and Tote; Over Bump", new AutomousStrafeToteAndRecycleToScoreOverBump());
 

@@ -1,28 +1,22 @@
 package org.usfirst.frc.team3574.robot.commands;
 
-import org.usfirst.frc.team3574.robot.RobotConstants;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
-import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo3;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
-import org.usfirst.frc.team3574.robot.subsystems.Collector;
-import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutomousStrafeRecycleToScore extends CommandGroup {
+public class AutomousPickUpRecycleThenDoNothingRIGHTSIDE extends CommandGroup {
     
-    public  AutomousStrafeRecycleToScore() {
+    public  AutomousPickUpRecycleThenDoNothingRIGHTSIDE() {
     	addSequential(new CalibrateAndGoToStart());
-    	addSequential(new ResetYaw(270.0));
+    	addSequential(new ResetYaw(90.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));
     	addSequential(new MoveElevatorTo3());
-    	addSequential(new DriveWithDistance(0, RobotConstants.AUTO_SPEED, 0, RobotConstants.AUTO_DISTANCE));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

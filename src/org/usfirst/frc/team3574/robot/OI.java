@@ -218,6 +218,8 @@ public class OI {
 //    	SmartDashboard.putData("OldElevatorBottom", new MoveElevatorTo(ToteAndRecycleLifterUpper.ALLOW_PICKUP_LEVEL_OFFSET));
 //    	SmartDashboard.putData("OldUpperDownerToteIsInRobot", new OldDownerUpperToteInRobot());
     	SmartDashboard.putData("Drive By Camera", new DriveByCameraRotate());
+//    	SmartDashboard.putData("Dirve With Joy Mini", new DriveWithMiniJoy());
+//    	SmartDashboard.putData("Dirve With Known Good Joy", new DriveWithJoy());
 //    	SmartDashboard.putData("MoveElevelatorTo1", new MoveElevatorTo1());
 //    	SmartDashboard.putData("MoveElevelatorTo2", new MoveElevatorTo2());
 //    	SmartDashboard.putData("MoveElevelatorTo3", new MoveElevatorTo3());

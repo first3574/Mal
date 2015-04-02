@@ -1,30 +1,28 @@
 package org.usfirst.frc.team3574.robot.commands;
 
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveForTime;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveRobotOrentated;
+import org.usfirst.frc.team3574.robot.RobotConstants;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithDistance;
 import org.usfirst.frc.team3574.robot.commands.drivetrain.ResetYaw;
-import org.usfirst.frc.team3574.robot.commands.drivetrain.Spin270;
 import org.usfirst.frc.team3574.robot.commands.totelifter.CalibrateAndGoToStart;
+import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo;
 import org.usfirst.frc.team3574.robot.commands.totelifter.MoveElevatorTo3;
 import org.usfirst.frc.team3574.robot.commands.totelifter.StackRecyclingContainerOpenArms;
+import org.usfirst.frc.team3574.robot.subsystems.Collector;
+import org.usfirst.frc.team3574.robot.subsystems.ToteAndRecycleLifterUpper;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutomousPickUpRecycleAndTurn extends CommandGroup {
+public class AutomousStrafeRecycleToScoreLEFTSIDE extends CommandGroup {
     
-    public  AutomousPickUpRecycleAndTurn() {
+    public  AutomousStrafeRecycleToScoreLEFTSIDE() {
     	addSequential(new CalibrateAndGoToStart());
     	addSequential(new ResetYaw(270.0));
     	addSequential(new StackRecyclingContainerOpenArms(false));
     	addSequential(new MoveElevatorTo3());
-    	addSequential(new DriveWithDistance(0, .40, 0, 340));
-        addSequential(new Spin270());
-//    	addSequential(new DriveRobotOrentated(0, .5, 0, 1));
-
+    	addSequential(new DriveWithDistance(0, RobotConstants.AUTO_SPEED, 0, RobotConstants.AUTO_DISTANCE));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());

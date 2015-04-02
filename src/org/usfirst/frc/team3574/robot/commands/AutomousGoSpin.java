@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3574.robot.commands;
 
-import org.usfirst.frc.team3574.robot.commands.drivetrain.Spin;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.Spin270;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -28,6 +28,6 @@ public class AutomousGoSpin extends CommandGroup {
         // arm.
     	
     	//addSequential(new DriveForTime());
-        addSequential(new Spin());
+        addSequential(new Spin270());
     }
 }

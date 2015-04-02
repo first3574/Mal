@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3574.robot.subsystems;
 
 import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithJoy;
+import org.usfirst.frc.team3574.robot.commands.drivetrain.DriveWithMiniJoy;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
@@ -35,7 +36,7 @@ public class DriveTrain extends Subsystem {
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new DriveWithJoy());
+        setDefaultCommand(new DriveWithMiniJoy());
         SmartDashboard.putNumber("Camera", 0);
     }
     
