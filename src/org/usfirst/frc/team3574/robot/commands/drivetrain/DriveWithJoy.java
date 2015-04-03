@@ -82,7 +82,7 @@ public class DriveWithJoy extends Command {
 			isNegative = true;
 		}
 		input = Math.abs(input);
-		double result = (Math.pow(Math.E, input) - 1) / 1.718;
+		double result =  input; //(Math.pow(Math.E, input) - 1) / 1.718;
 		if (isNegative) {
 			result *= -1.0;
 		}
